@@ -54,98 +54,13 @@
             <div class="column"></div>
             <div class="aura"></div>
 
-            <!-- Bigger + more realistic tee silhouette -->
-            <div class="relic">
-              <svg
-                class="relic-svg"
-                viewBox="0 0 520 520"
-                xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-label="DEITY relic tee"
-              >
-                <!-- soft outer glow -->
-                <defs>
-                  <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="6" result="blur" />
-                    <feColorMatrix
-                      in="blur"
-                      type="matrix"
-                      values="
-                        1 0 0 0 0
-                        0 1 0 0 0
-                        0 0 1 0 0
-                        0 0 0 0.55 0"
-                      result="glow"
-                    />
-                    <feMerge>
-                      <feMergeNode in="glow" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-
-                <!-- tee silhouette (more shirt-like: sleeves + torso) -->
-                <path
-                  d="M170 88
-                     L205 62
-                     Q214 56 226 56
-                     L294 56
-                     Q306 56 315 62
-                     L350 88
-                     L410 126
-                     Q420 132 414 144
-                     L382 200
-                     Q376 210 364 204
-                     L328 184
-                     L328 418
-                     Q328 448 298 448
-                     L222 448
-                     Q192 448 192 418
-                     L192 184
-                     L156 204
-                     Q144 210 138 200
-                     L106 144
-                     Q100 132 110 126
-                     Z"
-                  fill="rgba(233,230,223,0.045)"
-                  stroke="rgba(233,230,223,0.22)"
-                  stroke-width="3"
-                  stroke-linejoin="round"
-                  filter="url(#softGlow)"
-                />
-
-                <!-- collar -->
-                <path
-                  d="M226 56
-                     Q242 92 260 92
-                     Q278 92 294 56"
-                  fill="none"
-                  stroke="rgba(233,230,223,0.20)"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                />
-
-                <!-- gold DEITY mark (wider tracking) -->
-                <text
-                  x="260"
-                  y="275"
-                  text-anchor="middle"
-                  font-size="34"
-                  font-weight="800"
-                  letter-spacing="14"
-                  fill="rgba(241, 198, 92, 0.94)"
-                >
-                  DEITY
-                </text>
-
-                <!-- subtle gold “etched” underline -->
-                <path
-                  d="M190 308 L330 308"
-                  stroke="rgba(241,198,92,0.25)"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                />
-              </svg>
+            <!-- PSEUDO 3D ROTATING TEE (front/back) -->
+            <div class="tee3d-wrap">
+              <div class="tee3d">
+                <img class="tee-face tee-front" src="./images/tee-front.png" alt="DEITY tee front" />
+                <img class="tee-face tee-back" src="./images/tee-back.png" alt="DEITY tee back" />
+                <div class="tee-glow"></div>
+              </div>
             </div>
 
             <div class="sigil">DEITY</div>
@@ -163,7 +78,6 @@
 
         <div class="product">
           <div class="product-media">
-            <!-- Replace this with a real product photo later -->
             <div class="mock"></div>
           </div>
 
@@ -181,7 +95,6 @@
             </ul>
 
             <div class="buy-row">
-              <!-- IMPORTANT: Replace href with your Stripe Payment Link -->
               <a class="btn primary rare" href="https://example.com" target="_blank" rel="noopener">
                 Buy now
               </a>
