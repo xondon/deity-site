@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEITY — Mystic Classics</title>
+    <meta name="description" content="DEITY — subtle myth, weathered stone, mystic aura. Limited drops." />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <div class="grain"></div>
+
+    <header class="wrap header">
+      <div class="brand">DEITY</div>
+      <nav class="nav">
+        <a href="#drop">Drop</a>
+        <a href="#story">Story</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="wrap">
+      <section class="hero" id="top">
+        <div class="hero-left">
+          <p class="kicker">Myth worn into stone.</p>
+          <h1 class="title">DEITY</h1>
+          <p class="sub">
+            A subtle play on Roman & Greek divinity—weathered columns, mystic auras,
+            and clean typography. Limited pieces. No noise.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#drop">View the drop</a>
+            <a class="btn ghost" href="#story">Brand story</a>
+          </div>
+
+          <div class="meta">
+            <span>• Limited run</span>
+            <span>• Premium blanks</span>
+            <span>• Ships from US</span>
+          </div>
+        </div>
+
+        <div class="hero-right" aria-hidden="true">
+          <div class="aura-card">
+            <div class="column"></div>
+            <div class="aura"></div>
+            <div class="sigil">DEITY</div>
+          </div>
+          <p class="caption">Weathered stone + quiet glow.</p>
+        </div>
+      </section>
+
+      <section class="drop" id="drop">
+        <div class="section-head">
+          <h2>Drop 001</h2>
+          <p>One piece. Clean front type. Mythic undertone.</p>
+        </div>
+
+        <div class="product">
+          <div class="product-media">
+            <!-- Replace this with a real product photo later -->
+            <div class="mock"></div>
+          </div>
+
+          <div class="product-info">
+            <h3>DEITY Tee — “Column Aura”</h3>
+            <p class="desc">
+              Heavyweight tee with DEITY across the front. Minimal, classic, and
+              quietly divine.
+            </p>
+
+            <ul class="bullets">
+              <li>Heavyweight / premium blank</li>
+              <li>Front print: DEITY</li>
+              <li>Limited first run</li>
+            </ul>
+
+            <div class="buy-row">
+              <!-- IMPORTANT: Replace the href with your Stripe Payment Link -->
+              <a class="btn primary" href="https://example.com" target="_blank" rel="noopener">
+                Buy now
+              </a>
+              <a class="btn ghost" href="#contact">Get drop updates</a>
+            </div>
+
+            <p class="fineprint">
+              Tip: start with Stripe Payment Links (fast), upgrade to full cart later.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="story" id="story">
+        <div class="section-head">
+          <h2>Story</h2>
+          <p>Divinity, but worn. Old stone, soft aura, modern restraint.</p>
+        </div>
+
+        <div class="story-grid">
+          <div class="card">
+            <h4>Weathered Columns</h4>
+            <p>
+              Ancient structure meets modern simplicity—texture without clutter.
+            </p>
+          </div>
+          <div class="card">
+            <h4>Mystic Auras</h4>
+            <p>
+              Subtle glow and symbolism—felt more than seen.
+            </p>
+          </div>
+          <div class="card">
+            <h4>DEITY Typography</h4>
+            <p>
+              The mark is the message. Clean, centered, confident.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="section-head">
+          <h2>Get updates</h2>
+          <p>Drop announcements, restocks, and early access.</p>
+        </div>
+
+        <!-- Simple “mailto” for now. You can swap to Mailchimp later -->
+        <div class="contact-row">
+          <a class="btn primary" href="mailto:youremail@example.com?subject=DEITY%20Drop%20Updates">
+            Email me for drop updates
+          </a>
+          <a class="btn ghost" href="#top">Back to top</a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>© <span id="y"></span> DEITY</div>
+        <div class="footer-links">
+          <a href="#top">Top</a>
+          <a href="#drop">Drop</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
