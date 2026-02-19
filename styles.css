@@ -6,7 +6,6 @@
   --soft2:rgba(233,230,223,.06);
   --ring:rgba(233,230,223,.18);
 
-  /* “Rare loot” gold glow */
   --goldA: rgba(241, 198, 92, .52);
   --goldB: rgba(241, 198, 92, .28);
   --goldC: rgba(241, 198, 92, .14);
@@ -42,14 +41,12 @@ a{color:inherit; text-decoration:none}
   z-index:10;
 }
 
-/* Subtle ambient header aura */
 .header-glow{
   box-shadow:
     0 1px 0 rgba(233,230,223,.05),
     0 18px 40px rgba(0,0,0,.35);
 }
 
-/* Logo image */
 .brand-logo{display:flex; align-items:center}
 .brand-logo img{
   height:64px;
@@ -70,7 +67,6 @@ a{color:inherit; text-decoration:none}
 .nav{display:flex; gap:18px; font-size:13px; color:var(--muted)}
 .nav a{padding:10px 0}
 
-/* Rare-hover nav links */
 .nav-link{
   position:relative;
   color:var(--muted);
@@ -156,21 +152,13 @@ a{color:inherit; text-decoration:none}
   border-color: rgba(233,230,223,.28);
 }
 
-.btn.primary{
-  background: rgba(233,230,223,.12);
-}
-.btn.primary:hover{
-  background: rgba(233,230,223,.18);
-}
+.btn.primary{ background: rgba(233,230,223,.12); }
+.btn.primary:hover{ background: rgba(233,230,223,.18); }
 
-.btn.ghost{
-  background: rgba(233,230,223,.04);
-}
-.btn.ghost:hover{
-  background: rgba(233,230,223,.07);
-}
+.btn.ghost{ background: rgba(233,230,223,.04); }
+.btn.ghost:hover{ background: rgba(233,230,223,.07); }
 
-/* ---------------- Rare “loot hover” effect ---------------- */
+/* Rare hover */
 .btn.rare::before{
   content:"";
   position:absolute;
@@ -207,21 +195,7 @@ a{color:inherit; text-decoration:none}
     0 0 18px var(--goldC);
 }
 .btn.rare:hover::before{opacity:1;}
-.btn.rare:hover::after{
-  opacity:.85;
-  animation: shimmer 1.2s ease both;
-}
-
-.btn:focus-visible{
-  outline:none;
-  box-shadow:
-    0 0 0 2px rgba(233,230,223,.16),
-    0 0 0 5px rgba(241,198,92,.14);
-}
-
-@media (prefers-reduced-motion: reduce){
-  .btn, .nav-link, .btn.rare::after { animation: none !important; transition: none !important; }
-}
+.btn.rare:hover::after{ opacity:.85; animation: shimmer 1.2s ease both; }
 
 @keyframes shimmer{
   0%{ transform: translateX(0) rotate(18deg); }
@@ -246,12 +220,12 @@ a{color:inherit; text-decoration:none}
 
 /* ---------------- Aura Card ---------------- */
 .aura-card{
-  width:min(420px, 100%);
+  width:min(440px, 100%);            /* slightly wider */
   aspect-ratio: 4/5;
   border-radius:24px;
   border:1px solid rgba(233,230,223,.10);
   background:
-    radial-gradient(400px 260px at 50% 35%, rgba(233,230,223,.10), transparent 65%),
+    radial-gradient(420px 280px at 50% 35%, rgba(233,230,223,.10), transparent 65%),
     linear-gradient(180deg, rgba(233,230,223,.06), rgba(233,230,223,.03));
   position:relative;
   overflow:hidden;
@@ -261,19 +235,18 @@ a{color:inherit; text-decoration:none}
 .column{
   position:absolute;
   left:50%;
-  top:16%;
-  width:54%;
-  height:76%;
+  top:14%;
+  width:56%;
+  height:78%;
   transform: translateX(-50%);
   background:
     linear-gradient(90deg,
-      rgba(233,230,223,.06),
-      rgba(233,230,223,.16),
-      rgba(233,230,223,.05)
+      rgba(233,230,223,.05),
+      rgba(233,230,223,.14),
+      rgba(233,230,223,.04)
     );
   border-radius: 18px;
-  filter: blur(.1px);
-  opacity:.75;
+  opacity:.55;                      /* lower so shirt pops more */
 }
 .column::before, .column::after{
   content:"";
@@ -282,8 +255,8 @@ a{color:inherit; text-decoration:none}
   right:8%;
   height:10%;
   border-radius:16px;
-  background: rgba(233,230,223,.08);
-  border:1px solid rgba(233,230,223,.08);
+  background: rgba(233,230,223,.07);
+  border:1px solid rgba(233,230,223,.07);
 }
 .column::before{top:-3%}
 .column::after{bottom:-3%}
@@ -297,10 +270,10 @@ a{color:inherit; text-decoration:none}
     radial-gradient(closest-side at 50% 50%, rgba(233,230,223,.12), transparent 62%),
     radial-gradient(closest-side at 50% 58%, var(--goldC), transparent 62%);
   filter: blur(16px);
-  opacity:.9;
+  opacity:.92;
 }
 
-/* Relic tee layer */
+/* Relic tee layer — BIGGER + WIDER */
 .relic{
   position:absolute;
   inset:0;
@@ -311,18 +284,20 @@ a{color:inherit; text-decoration:none}
   pointer-events:none;
 }
 .relic-svg{
-  width:72%;
+  width:92%;                        /* bigger/wider */
+  max-width:none;
   height:auto;
+  opacity:.98;
   filter:
-    drop-shadow(0 0 14px rgba(241,198,92,.16))
-    drop-shadow(0 0 30px rgba(0,0,0,.55));
-  opacity:.95;
-  animation: relicFloat 6.5s ease-in-out infinite;
+    drop-shadow(0 0 18px rgba(241,198,92,.16))
+    drop-shadow(0 0 46px rgba(0,0,0,.55));
+  animation: relicFloat 6.2s ease-in-out infinite;
+  transform-origin: 50% 55%;
 }
 @keyframes relicFloat{
-  0%{ transform: translateY(0px); }
-  50%{ transform: translateY(-6px); }
-  100%{ transform: translateY(0px); }
+  0%{ transform: translateY(4px) scale(1.01); }
+  50%{ transform: translateY(-6px) scale(1.03); }
+  100%{ transform: translateY(4px) scale(1.01); }
 }
 
 .sigil{
@@ -442,4 +417,5 @@ a{color:inherit; text-decoration:none}
 }
 @media (max-width: 520px){
   .brand-logo img{height:46px;}
+  .relic-svg{width:96%;}
 }
