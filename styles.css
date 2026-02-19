@@ -34,10 +34,8 @@ a{color:inherit; text-decoration:none}
   justify-content:space-between;
   position:sticky;
   top:0;
-  /* give the logo breathing room */
   padding-top:14px;
   padding-bottom:14px;
-
   background: linear-gradient(to bottom, rgba(7,7,7,.82), rgba(7,7,7,.35));
   backdrop-filter: blur(10px);
   border-bottom:1px solid rgba(233,230,223,.06);
@@ -51,16 +49,12 @@ a{color:inherit; text-decoration:none}
     0 18px 40px rgba(0,0,0,.35);
 }
 
-/* ---------- Brand Logo (top-left image) ---------- */
-.brand-logo{
-  display:flex;
-  align-items:center;
-}
+/* Logo image */
+.brand-logo{display:flex; align-items:center}
 .brand-logo img{
-  height:64px; /* scaled up */
+  height:64px;
   width:auto;
   display:block;
-
   filter:
     drop-shadow(0 0 10px rgba(241,198,92,.42))
     drop-shadow(0 0 26px rgba(241,198,92,.18));
@@ -177,7 +171,6 @@ a{color:inherit; text-decoration:none}
 }
 
 /* ---------------- Rare “loot hover” effect ---------------- */
-/* Add class="rare" to any button you want to glow like a rare item */
 .btn.rare::before{
   content:"";
   position:absolute;
@@ -193,7 +186,6 @@ a{color:inherit; text-decoration:none}
   z-index:0;
 }
 .btn.rare::after{
-  /* Shimmer pass */
   content:"";
   position:absolute;
   top:-40%;
@@ -207,7 +199,6 @@ a{color:inherit; text-decoration:none}
 }
 .btn.rare > *{position:relative; z-index:1}
 
-/* Hover state */
 .btn.rare:hover{
   border-color: rgba(241,198,92,.38);
   box-shadow:
@@ -215,15 +206,12 @@ a{color:inherit; text-decoration:none}
     0 10px 34px rgba(0,0,0,.45),
     0 0 18px var(--goldC);
 }
-.btn.rare:hover::before{
-  opacity:1;
-}
+.btn.rare:hover::before{opacity:1;}
 .btn.rare:hover::after{
   opacity:.85;
   animation: shimmer 1.2s ease both;
 }
 
-/* Keyboard focus */
 .btn:focus-visible{
   outline:none;
   box-shadow:
@@ -231,12 +219,10 @@ a{color:inherit; text-decoration:none}
     0 0 0 5px rgba(241,198,92,.14);
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .btn, .nav-link, .btn.rare::after { animation: none !important; transition: none !important; }
 }
 
-/* Shimmer animation */
 @keyframes shimmer{
   0%{ transform: translateX(0) rotate(18deg); }
   100%{ transform: translateX(360%) rotate(18deg); }
@@ -287,7 +273,7 @@ a{color:inherit; text-decoration:none}
     );
   border-radius: 18px;
   filter: blur(.1px);
-  opacity:.85;
+  opacity:.75;
 }
 .column::before, .column::after{
   content:"";
@@ -314,6 +300,31 @@ a{color:inherit; text-decoration:none}
   opacity:.9;
 }
 
+/* Relic tee layer */
+.relic{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2;
+  pointer-events:none;
+}
+.relic-svg{
+  width:72%;
+  height:auto;
+  filter:
+    drop-shadow(0 0 14px rgba(241,198,92,.16))
+    drop-shadow(0 0 30px rgba(0,0,0,.55));
+  opacity:.95;
+  animation: relicFloat 6.5s ease-in-out infinite;
+}
+@keyframes relicFloat{
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(-6px); }
+  100%{ transform: translateY(0px); }
+}
+
 .sigil{
   position:absolute;
   left:50%;
@@ -330,6 +341,7 @@ a{color:inherit; text-decoration:none}
   background: rgba(7,7,7,.35);
   backdrop-filter: blur(8px);
   box-shadow: 0 0 18px rgba(241,198,92,.10);
+  z-index:3;
 }
 
 .caption{
@@ -428,8 +440,6 @@ a{color:inherit; text-decoration:none}
   .product{grid-template-columns: 1fr}
   .story-grid{grid-template-columns: 1fr}
 }
-
-/* Smaller logo on very small screens */
 @media (max-width: 520px){
   .brand-logo img{height:46px;}
 }
