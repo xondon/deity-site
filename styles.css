@@ -411,3 +411,18 @@ a{color:inherit; text-decoration:none}
   .product{grid-template-columns: 1fr}
   .story-grid{grid-template-columns: 1fr}
 }
+/* Brand Logo */
+.brand-logo img {
+  height: 36px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(241,198,92,.35));
+  transition: filter .2s ease, transform .2s ease;
+}
+
+.brand-logo img:hover {
+  filter:
+    drop-shadow(0 0 8px rgba(241,198,92,.55))
+    drop-shadow(0 0 18px rgba(241,198,92,.25));
+  transform: translateY(-1px);
+}
