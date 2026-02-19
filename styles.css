@@ -5,15 +5,21 @@
   --soft:rgba(233,230,223,.10);
   --soft2:rgba(233,230,223,.06);
   --ring:rgba(233,230,223,.18);
+
+  /* “Rare loot” gold glow */
+  --goldA: rgba(241, 198, 92, .52);
+  --goldB: rgba(241, 198, 92, .22);
+  --goldC: rgba(241, 198, 92, .12);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  background: radial-gradient(1200px 700px at 70% 20%, rgba(233,230,223,.08), transparent 60%),
-              radial-gradient(900px 600px at 20% 70%, rgba(233,230,223,.06), transparent 55%),
-              var(--bg);
+  background:
+    radial-gradient(1200px 700px at 70% 20%, rgba(233,230,223,.08), transparent 60%),
+    radial-gradient(900px 600px at 20% 70%, rgba(233,230,223,.06), transparent 55%),
+    var(--bg);
   color:var(--fg);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
   letter-spacing:.2px;
@@ -22,6 +28,7 @@ body{
 a{color:inherit; text-decoration:none}
 .wrap{max-width:1100px; margin:0 auto; padding:24px}
 
+/* ---------------- Header / Nav ---------------- */
 .header{
   display:flex;
   align-items:center;
@@ -34,6 +41,13 @@ a{color:inherit; text-decoration:none}
   z-index:10;
 }
 
+/* Subtle ambient header aura */
+.header-glow{
+  box-shadow:
+    0 1px 0 rgba(233,230,223,.05),
+    0 18px 40px rgba(0,0,0,.35);
+}
+
 .brand{
   font-weight:700;
   letter-spacing:.38em;
@@ -44,8 +58,38 @@ a{color:inherit; text-decoration:none}
 
 .nav{display:flex; gap:18px; font-size:13px; color:var(--muted)}
 .nav a{padding:10px 0}
-.nav a:hover{color:var(--fg)}
 
+/* Rare-hover nav links */
+.nav-link{
+  position:relative;
+  color:var(--muted);
+  transition: color .14s ease, text-shadow .14s ease;
+}
+.nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:6px;
+  height:1px;
+  background: linear-gradient(90deg, transparent, var(--goldA), transparent);
+  opacity:0;
+  transform: translateY(2px) scaleX(.85);
+  filter: blur(.2px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+.nav-link:hover{
+  color:rgba(233,230,223,.92);
+  text-shadow:
+    0 0 10px var(--goldB),
+    0 0 18px rgba(255,255,255,.06);
+}
+.nav-link:hover::after{
+  opacity:.9;
+  transform: translateY(0) scaleX(1);
+}
+
+/* ---------------- Hero ---------------- */
 .hero{
   display:grid;
   grid-template-columns: 1.05fr .95fr;
@@ -79,6 +123,7 @@ a{color:inherit; text-decoration:none}
 }
 
 .cta-row{display:flex; gap:12px; align-items:center; margin:16px 0 12px}
+
 .btn{
   display:inline-flex;
   align-items:center;
@@ -90,18 +135,96 @@ a{color:inherit; text-decoration:none}
   letter-spacing:.12em;
   text-transform:uppercase;
   background: transparent;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
 }
-.btn:hover{transform: translateY(-1px); border-color: rgba(233,230,223,.28)}
+.btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(233,230,223,.28);
+}
+
 .btn.primary{
   background: rgba(233,230,223,.12);
 }
 .btn.primary:hover{
   background: rgba(233,230,223,.18);
 }
+
 .btn.ghost{
   background: rgba(233,230,223,.04);
 }
+.btn.ghost:hover{
+  background: rgba(233,230,223,.07);
+}
+
+/* ---------------- Rare “loot hover” effect ---------------- */
+/* Add class="rare" to any button you want to glow like a rare item */
+.btn.rare::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:16px;
+  background:
+    radial-gradient(120px 120px at 20% 30%, var(--goldA), transparent 60%),
+    radial-gradient(140px 140px at 80% 70%, var(--goldB), transparent 65%),
+    linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+  opacity:0;
+  filter: blur(10px);
+  transition: opacity .16s ease;
+  z-index:0;
+}
+.btn.rare::after{
+  /* Shimmer pass */
+  content:"";
+  position:absolute;
+  top:-40%;
+  left:-60%;
+  width:55%;
+  height:180%;
+  background: linear-gradient(90deg, transparent, rgba(241,198,92,.28), rgba(255,255,255,.10), transparent);
+  transform: rotate(18deg);
+  opacity:0;
+  z-index:0;
+}
+.btn.rare > *{position:relative; z-index:1}
+
+/* Hover state */
+.btn.rare:hover{
+  border-color: rgba(241,198,92,.38);
+  box-shadow:
+    0 0 0 1px rgba(241,198,92,.16),
+    0 10px 34px rgba(0,0,0,.45),
+    0 0 18px var(--goldC);
+}
+.btn.rare:hover::before{
+  opacity:1;
+}
+.btn.rare:hover::after{
+  opacity:.85;
+  animation: shimmer 1.2s ease both;
+}
+
+/* Keyboard focus */
+.btn:focus-visible{
+  outline:none;
+  box-shadow:
+    0 0 0 2px rgba(233,230,223,.16),
+    0 0 0 5px rgba(241,198,92,.14);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .btn, .nav-link, .btn.rare::after { animation: none !important; transition: none !important; }
+}
+
+/* Shimmer animation */
+@keyframes shimmer{
+  0%{ transform: translateX(0) rotate(18deg); }
+  100%{ transform: translateX(360%) rotate(18deg); }
+}
+
 .meta{
   display:flex;
   flex-wrap:wrap;
@@ -118,6 +241,7 @@ a{color:inherit; text-decoration:none}
   justify-content:center;
 }
 
+/* ---------------- Aura Card ---------------- */
 .aura-card{
   width:min(420px, 100%);
   aspect-ratio: 4/5;
@@ -167,7 +291,8 @@ a{color:inherit; text-decoration:none}
   background:
     radial-gradient(closest-side at 55% 45%, rgba(210, 199, 255, .18), transparent 55%),
     radial-gradient(closest-side at 40% 55%, rgba(120, 210, 255, .14), transparent 58%),
-    radial-gradient(closest-side at 50% 50%, rgba(233,230,223,.12), transparent 62%);
+    radial-gradient(closest-side at 50% 50%, rgba(233,230,223,.12), transparent 62%),
+    radial-gradient(closest-side at 50% 58%, var(--goldC), transparent 62%);
   filter: blur(16px);
   opacity:.9;
 }
@@ -187,6 +312,7 @@ a{color:inherit; text-decoration:none}
   border:1px solid rgba(233,230,223,.14);
   background: rgba(7,7,7,.35);
   backdrop-filter: blur(8px);
+  box-shadow: 0 0 18px rgba(241,198,92,.10);
 }
 
 .caption{
@@ -196,6 +322,7 @@ a{color:inherit; text-decoration:none}
   letter-spacing:.10em;
 }
 
+/* ---------------- Sections ---------------- */
 .section-head{
   margin:46px 0 18px;
   display:flex;
@@ -267,6 +394,7 @@ a{color:inherit; text-decoration:none}
 .footer-links{display:flex; gap:14px; color:rgba(233,230,223,.55)}
 .footer-links a:hover{color:var(--fg)}
 
+/* ---------------- Grain Overlay ---------------- */
 .grain{
   pointer-events:none;
   position:fixed;
@@ -276,6 +404,7 @@ a{color:inherit; text-decoration:none}
   mix-blend-mode:overlay;
 }
 
+/* ---------------- Responsive ---------------- */
 @media (max-width: 920px){
   .hero{grid-template-columns: 1fr; padding-top:18px}
   .title{font-size:56px}
