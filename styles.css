@@ -1,3 +1,111 @@
+:root{
+  --bg:#070707;
+  --fg:#e9e6df;
+  --muted:rgba(233,230,223,.72);
+  --ring:rgba(233,230,223,.18);
+  --goldA: rgba(241,198,92,.45);
+  --goldB: rgba(241,198,92,.25);
+  --goldC: rgba(241,198,92,.12);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background: radial-gradient(1000px 600px at 70% 20%, rgba(233,230,223,.08), transparent 60%),
+              var(--bg);
+  color:var(--fg);
+  font-family: system-ui, sans-serif;
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid rgba(233,230,223,.06);
+}
+
+.brand-logo img{
+  height:64px;
+  filter:drop-shadow(0 0 12px var(--goldA));
+}
+
+.nav{display:flex;gap:18px;font-size:13px;color:var(--muted)}
+.nav-link:hover{color:white}
+
+/* HERO */
+.hero{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:34px;
+  padding-top:40px;
+}
+
+.title{
+  font-size:72px;
+  letter-spacing:.3em;
+}
+
+.sub{color:var(--muted);max-width:50ch}
+
+.btn{
+  padding:12px 18px;
+  border-radius:14px;
+  border:1px solid var(--ring);
+  text-transform:uppercase;
+  font-size:13px;
+  letter-spacing:.1em;
+}
+
+.btn.primary{
+  background:rgba(233,230,223,.12);
+}
+
+.btn.primary:hover{
+  box-shadow:0 0 20px var(--goldB);
+}
+
+/* AURA CARD */
+.aura-card{
+  width:440px;
+  aspect-ratio:4/5;
+  border-radius:24px;
+  border:1px solid rgba(233,230,223,.1);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 18px 70px rgba(0,0,0,.6);
+}
+
+.column{
+  position:absolute;
+  left:50%;
+  top:15%;
+  width:55%;
+  height:75%;
+  transform:translateX(-50%);
+  background:rgba(233,230,223,.06);
+  border-radius:18px;
+  opacity:.4;
+}
+
+.aura{
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(circle at center, var(--goldC), transparent 60%);
+  filter:blur(20px);
+  opacity:.9;
+}
+
+
+
+
+
+
+
 /* ---------- PSEUDO 3D TEE (front first, swap to back, reverse) ---------- */
 
 .tee3d-wrap{
@@ -76,4 +184,33 @@
   52%  { opacity:1; }
   98%  { opacity:1; }
   100% { opacity:0; }
+}
+
+.sigil{
+  position:absolute;
+  bottom:8%;
+  left:50%;
+  transform:translateX(-50%);
+  letter-spacing:.4em;
+  font-size:14px;
+}
+
+.section-head{
+  margin-top:60px;
+}
+
+.product{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  padding:18px;
+  border:1px solid rgba(233,230,223,.08);
+  border-radius:22px;
+}
+
+.footer{
+  margin-top:60px;
+  padding:20px 0;
+  border-top:1px solid rgba(233,230,223,.06);
+  text-align:center;
 }
