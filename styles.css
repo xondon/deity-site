@@ -1,161 +1,79 @@
-:root{
-  --bg:#070707;
-  --fg:#e9e6df;
-  --muted:rgba(233,230,223,.72);
-  --ring:rgba(233,230,223,.18);
-  --goldA: rgba(241,198,92,.45);
-  --goldB: rgba(241,198,92,.25);
-  --goldC: rgba(241,198,92,.12);
-}
+/* ---------- PSEUDO 3D TEE (front first, swap to back, reverse) ---------- */
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background: radial-gradient(1000px 600px at 70% 20%, rgba(233,230,223,.08), transparent 60%),
-              var(--bg);
-  color:var(--fg);
-  font-family: system-ui, sans-serif;
-}
-
-.wrap{max-width:1100px;margin:0 auto;padding:24px}
-
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 0;
-  border-bottom:1px solid rgba(233,230,223,.06);
-}
-
-.brand-logo img{
-  height:64px;
-  filter:drop-shadow(0 0 12px var(--goldA));
-}
-
-.nav{display:flex;gap:18px;font-size:13px;color:var(--muted)}
-.nav-link:hover{color:white}
-
-/* HERO */
-.hero{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:34px;
-  padding-top:40px;
-}
-
-.title{
-  font-size:72px;
-  letter-spacing:.3em;
-}
-
-.sub{color:var(--muted);max-width:50ch}
-
-.btn{
-  padding:12px 18px;
-  border-radius:14px;
-  border:1px solid var(--ring);
-  text-transform:uppercase;
-  font-size:13px;
-  letter-spacing:.1em;
-}
-
-.btn.primary{
-  background:rgba(233,230,223,.12);
-}
-
-.btn.primary:hover{
-  box-shadow:0 0 20px var(--goldB);
-}
-
-/* AURA CARD */
-.aura-card{
-  width:440px;
-  aspect-ratio:4/5;
-  border-radius:24px;
-  border:1px solid rgba(233,230,223,.1);
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 18px 70px rgba(0,0,0,.6);
-}
-
-.column{
-  position:absolute;
-  left:50%;
-  top:15%;
-  width:55%;
-  height:75%;
-  transform:translateX(-50%);
-  background:rgba(233,230,223,.06);
-  border-radius:18px;
-  opacity:.4;
-}
-
-.aura{
-  position:absolute;
-  inset:-20%;
-  background:
-    radial-gradient(circle at center, var(--goldC), transparent 60%);
-  filter:blur(20px);
-  opacity:.9;
-}
-
-/* 3D TEE */
 .tee3d-wrap{
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
+  z-index:2;
+  pointer-events:none;
 }
 
 .tee3d{
   position:relative;
-  width:90%;
-  transform-style:preserve-3d;
-  animation:turn 12s ease-in-out infinite alternate;
+  width:99%;                /* ~10% bigger */
+  max-width:460px;          /* optional: makes it physically larger */
+  aspect-ratio: 1 / 1.05;
+  transform-style: preserve-3d;
+  perspective: 900px;
+
+  /* ping-pong turn */
+  animation: teeTurn 12s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 18px rgba(241,198,92,.10))
+    drop-shadow(0 0 50px rgba(0,0,0,.55));
 }
 
 .tee-face{
   position:absolute;
+  inset:0;
   width:100%;
-  backface-visibility:hidden;
+  height:100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+  transform: translateZ(18px);
 }
 
+/* back face lives behind */
 .tee-back{
-  transform:rotateY(180deg);
+  transform: rotateY(180deg) translateZ(18px);
 }
 
-@keyframes turn{
-  0%{transform:rotateY(-25deg) rotateX(5deg);}
-  100%{transform:rotateY(25deg) rotateX(5deg);}
+/* show/hide faces on a timer (this is the “swap”) */
+.tee-front{
+  opacity:1;
+  animation: faceFront 12s ease-in-out infinite;
+}
+.tee-back{
+  opacity:0;
+  animation: faceBack 12s ease-in-out infinite;
 }
 
-.sigil{
-  position:absolute;
-  bottom:8%;
-  left:50%;
-  transform:translateX(-50%);
-  letter-spacing:.4em;
-  font-size:14px;
+@keyframes teeTurn{
+  /* FRONT shows while turning left -> right */
+  0%   { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
+  49%  { transform: rotateY( 28deg) rotateX(6deg) scale(1.02); }
+
+  /* BACK shows while turning right -> left */
+  51%  { transform: rotateY( 28deg) rotateX(6deg) scale(1.02); }
+  100% { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
 }
 
-.section-head{
-  margin-top:60px;
+/* keep front visible for first half, then swap off */
+@keyframes faceFront{
+  0%   { opacity:1; }
+  48%  { opacity:1; }
+  52%  { opacity:0; }
+  98%  { opacity:0; }
+  100% { opacity:1; }
 }
 
-.product{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:22px;
-  padding:18px;
-  border:1px solid rgba(233,230,223,.08);
-  border-radius:22px;
-}
-
-.footer{
-  margin-top:60px;
-  padding:20px 0;
-  border-top:1px solid rgba(233,230,223,.06);
-  text-align:center;
+/* keep back hidden first half, then swap on */
+@keyframes faceBack{
+  0%   { opacity:0; }
+  48%  { opacity:0; }
+  52%  { opacity:1; }
+  98%  { opacity:1; }
+  100% { opacity:0; }
 }
