@@ -10,8 +10,8 @@
       content="DEITY — ancient gods translated into modern dark streetwear. Weathered columns, mystic auras, and clean typography. Limited drops."
     />
 
-    <!-- IMPORTANT: Absolute repo-root path for GitHub Pages -->
-    <link rel="stylesheet" href="/deity-site/styles.css">
+    <!-- Custom-domain safe (relative path) -->
+    <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
@@ -19,8 +19,8 @@
 
     <header class="wrap header header-glow">
       <div class="brand-logo">
-        <!-- IMPORTANT: Absolute path -->
-        <img src="/deity-site/images/deity-logo.png" alt="DEITY" />
+        <!-- Custom-domain safe -->
+        <img src="images/deity-logo.png" alt="DEITY" />
       </div>
 
       <nav class="nav">
@@ -58,18 +58,11 @@
             <div class="column"></div>
             <div class="aura"></div>
 
-            <!-- 3D Tee -->
+            <!-- Pseudo 3D tee: front first, turn right, swap to back, turn left -->
             <div class="tee3d-wrap">
               <div class="tee3d">
-                <!-- IMPORTANT: Absolute paths -->
-                <img class="tee-face tee-front"
-                     src="/deity-site/images/tee-front.png"
-                     alt="DEITY tee front" />
-
-                <img class="tee-face tee-back"
-                     src="/deity-site/images/tee-back.png"
-                     alt="DEITY tee back" />
-
+                <img class="tee-face tee-front" src="images/tee-front.png" alt="DEITY tee front" />
+                <img class="tee-face tee-back" src="images/tee-back.png" alt="DEITY tee back" />
                 <div class="tee-glow"></div>
               </div>
             </div>
@@ -89,6 +82,7 @@
 
         <div class="product">
           <div class="product-media">
+            <!-- Replace with product photo later -->
             <div class="mock"></div>
           </div>
 
@@ -97,7 +91,7 @@
 
             <p class="desc">
               Ash faded black tee with DEITY in gold across the front.
-              Clean, centered, and quietly divine.
+              Clean, centered, and quietly divine—like a relic you weren’t meant to find.
             </p>
 
             <ul class="bullets">
@@ -107,29 +101,68 @@
             </ul>
 
             <div class="buy-row">
-              <a class="btn primary rare"
-                 href="https://example.com"
-                 target="_blank"
-                 rel="noopener">
+              <!-- Replace this with your Stripe Payment Link -->
+              <a class="btn primary rare" href="https://example.com" target="_blank" rel="noopener">
                 Buy now
               </a>
-
-              <a class="btn ghost" href="#contact">
-                Get drop updates
-              </a>
+              <a class="btn ghost" href="#contact">Get drop updates</a>
             </div>
+
+            <p class="fineprint">
+              Tip: start with Stripe Payment Links (fast), upgrade to full cart later.
+            </p>
           </div>
+        </div>
+      </section>
+
+      <section class="story" id="story">
+        <div class="section-head">
+          <h2>Story</h2>
+          <p>Divinity, but worn. Stone, aura, and modern restraint.</p>
+        </div>
+
+        <div class="story-grid">
+          <div class="card">
+            <h4>Weathered Columns</h4>
+            <p>Ancient structure translated into texture—ruins, but deliberate.</p>
+          </div>
+          <div class="card">
+            <h4>Mystic Auras</h4>
+            <p>That “rare item” presence—felt before it’s fully seen.</p>
+          </div>
+          <div class="card">
+            <h4>DEITY Mark</h4>
+            <p>Clean type. Centered confidence. The symbol is the signal.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="section-head">
+          <h2>Get updates</h2>
+          <p>Drop announcements, restocks, and early access.</p>
+        </div>
+
+        <div class="contact-row">
+          <a class="btn primary rare" href="mailto:youremail@example.com?subject=DEITY%20Drop%20Updates">
+            Email me for drop updates
+          </a>
+          <a class="btn ghost" href="#top">Back to top</a>
         </div>
       </section>
 
       <footer class="footer">
         <div>© <span id="y"></span> DEITY</div>
+        <div class="footer-links">
+          <a href="#top">Top</a>
+          <a href="#drop">Drop</a>
+          <a href="#contact">Contact</a>
+        </div>
       </footer>
     </main>
 
     <script>
-      document.getElementById("y").textContent =
-        new Date().getFullYear();
+      document.getElementById("y").textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
