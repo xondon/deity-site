@@ -1,106 +1,161 @@
-/* --------- Pseudo 3D tee rotation (front/back) --------- */
+:root{
+  --bg:#070707;
+  --fg:#e9e6df;
+  --muted:rgba(233,230,223,.72);
+  --ring:rgba(233,230,223,.18);
+  --goldA: rgba(241,198,92,.45);
+  --goldB: rgba(241,198,92,.25);
+  --goldC: rgba(241,198,92,.12);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background: radial-gradient(1000px 600px at 70% 20%, rgba(233,230,223,.08), transparent 60%),
+              var(--bg);
+  color:var(--fg);
+  font-family: system-ui, sans-serif;
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid rgba(233,230,223,.06);
+}
+
+.brand-logo img{
+  height:64px;
+  filter:drop-shadow(0 0 12px var(--goldA));
+}
+
+.nav{display:flex;gap:18px;font-size:13px;color:var(--muted)}
+.nav-link:hover{color:white}
+
+/* HERO */
+.hero{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:34px;
+  padding-top:40px;
+}
+
+.title{
+  font-size:72px;
+  letter-spacing:.3em;
+}
+
+.sub{color:var(--muted);max-width:50ch}
+
+.btn{
+  padding:12px 18px;
+  border-radius:14px;
+  border:1px solid var(--ring);
+  text-transform:uppercase;
+  font-size:13px;
+  letter-spacing:.1em;
+}
+
+.btn.primary{
+  background:rgba(233,230,223,.12);
+}
+
+.btn.primary:hover{
+  box-shadow:0 0 20px var(--goldB);
+}
+
+/* AURA CARD */
+.aura-card{
+  width:440px;
+  aspect-ratio:4/5;
+  border-radius:24px;
+  border:1px solid rgba(233,230,223,.1);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 18px 70px rgba(0,0,0,.6);
+}
+
+.column{
+  position:absolute;
+  left:50%;
+  top:15%;
+  width:55%;
+  height:75%;
+  transform:translateX(-50%);
+  background:rgba(233,230,223,.06);
+  border-radius:18px;
+  opacity:.4;
+}
+
+.aura{
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(circle at center, var(--goldC), transparent 60%);
+  filter:blur(20px);
+  opacity:.9;
+}
+
+/* 3D TEE */
 .tee3d-wrap{
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:2;
-  pointer-events:none;
 }
 
 .tee3d{
   position:relative;
-  width:92%;
-  max-width:420px;
-  aspect-ratio: 1 / 1.05;
-  transform-style: preserve-3d;
-  perspective: 900px;
-
-  /* SLOWER + ping-pong */
-  animation: teeTurn 10.5s ease-in-out infinite alternate;
-
-  filter:
-    drop-shadow(0 0 18px rgba(241,198,92,.10))
-    drop-shadow(0 0 50px rgba(0,0,0,.55));
+  width:90%;
+  transform-style:preserve-3d;
+  animation:turn 12s ease-in-out infinite alternate;
 }
 
 .tee-face{
   position:absolute;
-  inset:0;
   width:100%;
-  height:100%;
-  object-fit: contain;
-  backface-visibility: hidden;
-  transform: translateZ(18px);
+  backface-visibility:hidden;
 }
 
-/* Keep the back face behind in 3D space */
 .tee-back{
-  transform: rotateY(180deg) translateZ(18px);
+  transform:rotateY(180deg);
 }
 
-/* We will "swap" which face is showing using opacity timing */
-.tee-front{
-  opacity: 1;
-  animation: faceSwapFront 10.5s ease-in-out infinite alternate;
-}
-.tee-back{
-  opacity: 0;
-  animation: faceSwapBack 10.5s ease-in-out infinite alternate;
+@keyframes turn{
+  0%{transform:rotateY(-25deg) rotateX(5deg);}
+  100%{transform:rotateY(25deg) rotateX(5deg);}
 }
 
-/* rare glow bloom behind */
-.tee-glow{
+.sigil{
   position:absolute;
-  inset:-8%;
-  border-radius:24px;
-  background:
-    radial-gradient(closest-side at 50% 50%, rgba(241,198,92,.16), transparent 62%),
-    radial-gradient(closest-side at 35% 30%, rgba(241,198,92,.10), transparent 65%);
-  filter: blur(14px);
-  opacity:.85;
-  transform: translateZ(0);
+  bottom:8%;
+  left:50%;
+  transform:translateX(-50%);
+  letter-spacing:.4em;
+  font-size:14px;
 }
 
-/*
-  teeTurn: rotates left-to-right first (front visible),
-  then right-to-left (back visible), repeating.
-  Using alternate means it plays forward then reverse each cycle.
-*/
-@keyframes teeTurn{
-  /* start: front, slightly angled */
-  0%   { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
-
-  /* reach far right */
-  100% { transform: rotateY(28deg)  rotateX(6deg) scale(1.02); }
+.section-head{
+  margin-top:60px;
 }
 
-/*
-  Swap logic:
-  - While moving from -28deg -> +28deg, show FRONT.
-  - At the far right (end), quickly swap to BACK.
-  - On the reverse pass (+28deg -> -28deg), show BACK.
-  - At the far left (end), quickly swap back to FRONT.
-*/
-@keyframes faceSwapFront{
-  0%   { opacity:1; }
-  47%  { opacity:1; }   /* keep front during the turn */
-  50%  { opacity:0; }   /* swap at the "right" endpoint */
-  97%  { opacity:0; }   /* stay hidden during reverse (back showing) */
-  100% { opacity:1; }   /* swap back at the "left" endpoint */
+.product{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  padding:18px;
+  border:1px solid rgba(233,230,223,.08);
+  border-radius:22px;
 }
 
-@keyframes faceSwapBack{
-  0%   { opacity:0; }
-  47%  { opacity:0; }
-  50%  { opacity:1; }   /* appear at right endpoint */
-  97%  { opacity:1; }   /* stay visible during reverse */
-  100% { opacity:0; }   /* hide at left endpoint */
-}
-
-/* Optional: slow down further on small screens */
-@media (max-width: 520px){
-  .tee3d{ width:96%; animation-duration: 12.5s; }
-  .tee-front, .tee-back{ animation-duration: 12.5s; }
+.footer{
+  margin-top:60px;
+  padding:20px 0;
+  border-top:1px solid rgba(233,230,223,.06);
+  text-align:center;
 }
