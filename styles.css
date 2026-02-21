@@ -597,3 +597,87 @@ box-shadow:0 0 20px rgba(241,198,92,.2);
 transform:translateY(-1px);
 
 }
+/* ================= BUY BUTTON GLOW ================= */
+
+.buy-row .btn.primary{
+
+position:relative;
+
+overflow:hidden;
+
+/* stronger gold aura */
+box-shadow:
+0 0 20px rgba(241,198,92,.25),
+0 0 60px rgba(241,198,92,.12);
+
+animation: buyGlow 3s ease-in-out infinite;
+
+}
+
+
+/* Soft pulsing aura */
+
+@keyframes buyGlow{
+
+0%{
+box-shadow:
+0 0 20px rgba(241,198,92,.25),
+0 0 60px rgba(241,198,92,.10);
+}
+
+50%{
+box-shadow:
+0 0 35px rgba(241,198,92,.45),
+0 0 90px rgba(241,198,92,.25);
+}
+
+100%{
+box-shadow:
+0 0 20px rgba(241,198,92,.25),
+0 0 60px rgba(241,198,92,.10);
+}
+
+}
+
+
+/* Moving light shine */
+
+.buy-row .btn.primary::after{
+
+content:"";
+
+position:absolute;
+
+top:-50%;
+
+left:-40%;
+
+width:40%;
+
+height:200%;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.35),
+transparent
+);
+
+transform:rotate(25deg);
+
+animation: shineMove 4s linear infinite;
+
+}
+
+
+@keyframes shineMove{
+
+0%{
+left:-40%;
+}
+
+100%{
+left:140%;
+}
+
+}
