@@ -1,208 +1,449 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+<meta charset="UTF-8" />
 
-  <!-- ✅ Better SVG favicon type -->
-  <link rel="icon" type="image/svg+xml" sizes="64x64" href="/images/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
 
-  <title>DEITY — Modern Myth</title>
+<title>DEITY — Modern Myth</title>
 
-  <meta name="description"
-        content="DEITY — ancient gods translated into modern dark streetwear. Weathered columns, mystic auras, and clean typography. Limited drops." />
+<meta name="description"
+content="DEITY — ancient gods translated into modern dark streetwear. Weathered columns, mystic auras, and clean typography. Limited drops." />
 
-  <link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 </head>
 
+
 <body>
-  <div class="grain"></div>
 
-  <header class="wrap header header-glow">
-    <!-- Left logo -->
-    <div class="brand-logo">
-      <img src="/images/deity-logo.png?v=3" alt="DEITY">
-    </div>
+<div class="grain"></div>
 
-    <!-- ✅ Center logo -->
-    <a class="brand-center" href="/" aria-label="Home">
-      <img src="/images/favicon.svg" alt="DEITY centered">
-    </a>
 
-    <!-- Right nav -->
-    <nav class="nav">
-      <a class="nav-link" href="#drop">Drop</a>
-      <!-- ✅ Contact opens modal -->
-      <button class="nav-link nav-btn-link" type="button" id="contactBtn">Contact</button>
-    </nav>
-  </header>
+<header class="wrap header header-glow">
 
-  <main class="wrap">
+<div class="brand-logo">
+<img src="/images/deity-logo.png?v=3" alt="DEITY">
+</div>
 
-    <section class="hero">
-      <div class="hero-left">
-        <p class="kicker">Myth, worn into stone.</p>
 
-        <h1 class="title logo-title">
-          <img src="images/deity-logo.png" alt="DEITY" class="hero-logo">
-          <span class="visually-hidden">DEITY</span>
-        </h1>
+<a class="brand-center" href="/">
+<img src="/images/deity-logo.png?v=3" alt="DEITY">
+</a>
 
-        <p class="sub">
-          Ancient gods and old ideas reintroduced as modern dark streetwear—
-          your favorite ancient influencer is a Deity.
-        </p>
 
-        <div class="cta-row">
-          <a class="btn primary rare" href="#drop">View the drop</a>
-        </div>
-      </div>
+<nav class="nav">
 
-      <div class="hero-right">
-        <div class="aura-card">
-          <div class="column"></div>
-          <div class="aura"></div>
+<a class="nav-link" href="#drop">
+Drop
+</a>
 
-          <div class="tee3d-wrap">
-            <div class="tee3d">
-              <img class="tee-face tee-front"
-                   src="/images/tee-front.png?v=3"
-                   alt="DEITY tee front" />
+<button class="nav-link nav-btn-link"
+type="button"
+id="contactBtn">
+Contact
+</button>
 
-              <img class="tee-face tee-back"
-                   src="/images/tee-back.png?v=3"
-                   alt="DEITY tee back" />
+</nav>
 
-              <div class="tee-glow"></div>
-            </div>
-          </div>
+</header>
 
-          <div class="sigil">$60</div>
-        </div>
 
-        <p class="caption"></p>
-      </div>
-    </section>
 
-    <section class="drop" id="drop">
-      <div class="section-head">
-        <h2>Drop 001</h2>
-        <p>Become a Deity</p>
-      </div>
+<main class="wrap">
 
-      <div class="product">
-        <div class="product-media">
-          <div class="mock"></div>
-        </div>
 
-        <div class="product-info">
-          <h3>DEITY Tee — “Ash / Gold”</h3>
-          <p class="desc">
-            Ash faded black tee with DEITY in gold across the front.
-            Clean, centered, quietly divine.
-          </p>
 
-          <ul class="bullets">
-            <li>Ash faded black base</li>
-            <li>Front print: DEITY (gold)</li>
-            <li>Limited first run</li>
-          </ul>
+<section class="hero">
 
-          <div class="buy-row">
-            <a class="btn primary"
-               href="https://shop.deityco.com/cart/43132932554886:1"
-               target="_blank"
-               rel="noopener">
-              Buy Now
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="hero-left">
 
-    <footer class="footer">
-      <div>© <span id="y"></span> DEITY</div>
-    </footer>
+<p class="kicker">
+Myth, worn into stone.
+</p>
 
-  </main>
 
-  <!-- ✅ Contact Modal (Formspree) -->
-  <div class="modal-backdrop" id="contactModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-      <div class="modal-head">
-        <h2 id="contactTitle">Contact</h2>
-        <button class="modal-close" type="button" id="contactCloseBtn" aria-label="Close">✕</button>
-      </div>
+<h1 class="title logo-title">
 
-      <form class="modal-body"
-            action="https://formspree.io/f/xeelrkgg"
-            method="POST">
+<img
+src="images/deity-logo.png"
+alt="DEITY"
+class="hero-logo">
 
-        <!-- optional: nicer email subject -->
-        <input type="hidden" name="_subject" value="New DEITY Contact Message">
+<span class="visually-hidden">
+DEITY
+</span>
 
-        <!-- optional: send user back to your site after submit -->
-        <input type="hidden" name="_next" value="https://deityco.com">
+</h1>
 
-        <label>
-          Name
-          <input name="name" type="text" autocomplete="name" required />
-        </label>
 
-        <label>
-          Email
-          <input name="email" type="email" autocomplete="email" required />
-        </label>
+<p class="sub">
 
-        <label>
-          Message
-          <textarea name="message" rows="5" required></textarea>
-        </label>
+Ancient gods and old ideas reintroduced as modern dark streetwear—
+your favorite ancient influencer is a Deity.
 
-        <div class="modal-actions">
-          <button type="button" class="btn" id="contactCancelBtn">Cancel</button>
-          <button type="submit" class="btn primary">Send</button>
-        </div>
-      </form>
-    </div>
-  </div>
+</p>
 
-  <script>
-    // Footer year
-    document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Contact modal logic (Formspree handles submit)
-    const modal = document.getElementById('contactModal');
-    const openBtn = document.getElementById('contactBtn');
-    const closeBtn = document.getElementById('contactCloseBtn');
-    const cancelBtn = document.getElementById('contactCancelBtn');
+<div class="cta-row">
 
-    function openModal(){
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
+<a class="btn primary rare"
+href="#drop">
 
-      const first = modal.querySelector('input, textarea, button');
-      if (first) first.focus();
-    }
+View the drop
 
-    function closeModal(){
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      openBtn.focus();
-    }
+</a>
 
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
+</div>
 
-    // Click outside closes
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
+</div>
 
-    // ESC closes
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
-    });
-  </script>
+
+
+<div class="hero-right">
+
+<div class="aura-card">
+
+<div class="column"></div>
+
+<div class="aura"></div>
+
+
+
+<div class="tee3d-wrap">
+
+<div class="tee3d">
+
+
+<img
+class="tee-face tee-front"
+src="/images/tee-front.png?v=3"
+alt="DEITY tee front" />
+
+
+<img
+class="tee-face tee-back"
+src="/images/tee-back.png?v=3"
+alt="DEITY tee back" />
+
+
+<div class="tee-glow"></div>
+
+</div>
+
+</div>
+
+
+<div class="sigil">
+$60
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="drop" id="drop">
+
+<div class="section-head">
+
+<h2>Drop 001</h2>
+
+<p>Become a Deity</p>
+
+</div>
+
+
+
+<div class="product">
+
+
+<div class="product-media">
+<div class="mock"></div>
+</div>
+
+
+
+<div class="product-info">
+
+<h3>DEITY Tee — “Ash / Gold”</h3>
+
+<p class="desc">
+
+Ash faded black tee with DEITY in gold across the front.
+Clean, centered, quietly divine.
+
+</p>
+
+
+<ul class="bullets">
+
+<li>Ash faded black base</li>
+
+<li>Front print: DEITY (gold)</li>
+
+<li>Limited first run</li>
+
+</ul>
+
+
+
+<div class="buy-row">
+
+<a class="btn primary"
+
+href="https://shop.deityco.com/cart/43132932554886:1"
+
+target="_blank"
+
+rel="noopener">
+
+Buy Now
+
+</a>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<footer class="footer">
+
+<div>
+
+© <span id="y"></span> DEITY
+
+</div>
+
+</footer>
+
+
+
+</main>
+
+
+
+
+<!-- CONTACT MODAL -->
+
+
+<div class="modal-backdrop"
+
+id="contactModal"
+
+aria-hidden="true">
+
+
+
+<div class="modal">
+
+
+
+<div class="modal-head">
+
+<h2>Contact</h2>
+
+<button
+
+class="modal-close"
+
+id="contactCloseBtn">
+
+✕
+
+</button>
+
+</div>
+
+
+
+<form
+
+class="modal-body"
+
+action="https://formspree.io/f/xeelrkgg"
+
+method="POST">
+
+
+
+<input type="hidden"
+
+name="_subject"
+
+value="New DEITY Contact Message">
+
+
+<input type="hidden"
+
+name="_next"
+
+value="https://deityco.com">
+
+
+
+<label>
+
+Name
+
+<input name="name"
+
+type="text"
+
+required>
+
+</label>
+
+
+
+<label>
+
+Email
+
+<input name="email"
+
+type="email"
+
+required>
+
+</label>
+
+
+
+<label>
+
+Message
+
+<textarea name="message"
+
+rows="5"
+
+required></textarea>
+
+</label>
+
+
+
+<div class="modal-actions">
+
+
+<button
+
+type="button"
+
+class="btn"
+
+id="contactCancelBtn">
+
+Cancel
+
+</button>
+
+
+
+<button
+
+type="submit"
+
+class="btn primary">
+
+Send
+
+</button>
+
+
+
+</div>
+
+</form>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+document.getElementById("y").textContent =
+new Date().getFullYear();
+
+
+
+const modal =
+document.getElementById('contactModal');
+
+
+const openBtn =
+document.getElementById('contactBtn');
+
+
+const closeBtn =
+document.getElementById('contactCloseBtn');
+
+
+const cancelBtn =
+document.getElementById('contactCancelBtn');
+
+
+
+function openModal(){
+
+modal.classList.add('is-open');
+
+}
+
+
+
+function closeModal(){
+
+modal.classList.remove('is-open');
+
+}
+
+
+
+openBtn.onclick = openModal;
+
+closeBtn.onclick = closeModal;
+
+cancelBtn.onclick = closeModal;
+
+
+
+modal.onclick = (e)=>{
+
+if(e.target===modal) closeModal();
+
+};
+
+
+
+document.onkeydown=(e)=>{
+
+if(e.key==="Escape")
+
+closeModal();
+
+};
+
+
+
+</script>
+
+
 </body>
+
 </html>
