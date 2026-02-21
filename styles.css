@@ -126,6 +126,12 @@ a{color:inherit; text-decoration:none}
   background:rgba(233,230,223,.16);
 }
 
+.hero-logo:hover{
+  filter:
+    drop-shadow(0 0 30px rgba(241,198,92,.45))
+    drop-shadow(0 0 80px rgba(241,198,92,.25));
+  transition: filter .4s ease;
+}
 /* ================= AURA CARD ================= */
 
 .hero-right{
