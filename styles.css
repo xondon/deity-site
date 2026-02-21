@@ -42,7 +42,6 @@ a{color:inherit; text-decoration:none}
   filter:drop-shadow(0 0 12px var(--goldA));
 }
 
-/* Center logo */
 .brand-center{
   position:absolute;
   left:50%;
@@ -67,7 +66,8 @@ a{color:inherit; text-decoration:none}
 
 .nav{
   display:flex;
-  gap:18px;
+  align-items:center;
+  gap:14px;
   font-size:13px;
   color:var(--muted);
 }
@@ -81,7 +81,6 @@ a{color:inherit; text-decoration:none}
   color:white;
 }
 
-/* Contact button looks like link */
 .nav-btn-link{
   appearance:none;
   border:none;
@@ -89,6 +88,33 @@ a{color:inherit; text-decoration:none}
   color:inherit;
   font:inherit;
   cursor:pointer;
+}
+
+/* ✅ Social icon buttons */
+.nav-icon{
+  width:34px;
+  height:34px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  border:1px solid rgba(233,230,223,.10);
+  background: rgba(7,7,7,.25);
+  transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+
+.nav-icon svg{
+  width:16px;
+  height:16px;
+  fill: currentColor;
+  opacity:.9;
+}
+
+.nav-icon:hover{
+  transform: translateY(-1px);
+  border-color: rgba(233,230,223,.24);
+  box-shadow: 0 0 18px rgba(241,198,92,.12);
+  color: #fff;
 }
 
 /* ================= HERO ================= */
@@ -168,6 +194,78 @@ a{color:inherit; text-decoration:none}
   transition: filter .4s ease;
 }
 
+.logo-title{
+  margin:0;
+  display:flex;
+  align-items:center;
+}
+
+.hero-logo{
+  width:100%;
+  max-width:520px;
+  height:auto;
+  display:block;
+
+  filter:
+    drop-shadow(0 0 20px rgba(241,198,92,.25))
+    drop-shadow(0 0 50px rgba(0,0,0,.7));
+}
+
+/* ================= EMAIL CAPTURE ================= */
+
+.email-capture{
+  margin-top:34px;
+  padding:18px;
+  border-radius:22px;
+  border:1px solid rgba(233,230,223,.10);
+  background: linear-gradient(180deg, rgba(233,230,223,.05), rgba(233,230,223,.02));
+  box-shadow: 0 20px 70px rgba(0,0,0,.35);
+}
+
+.email-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.email-copy h2{
+  margin:0;
+  font-size:14px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+
+.email-copy p{
+  margin:8px 0 0;
+  color:var(--muted);
+  max-width:52ch;
+  line-height:1.5;
+}
+
+.email-form{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.email-input{
+  width:min(360px, 70vw);
+  padding:11px 12px;
+  border-radius:14px;
+  border:1px solid rgba(233,230,223,.14);
+  background: rgba(7,7,7,.55);
+  color: var(--fg);
+  outline:none;
+}
+
+.email-input:focus{
+  border-color: rgba(241,198,92,.35);
+  box-shadow: 0 0 0 4px rgba(241,198,92,.12);
+}
+
 /* ================= AURA CARD ================= */
 
 .hero-right{
@@ -202,23 +300,6 @@ a{color:inherit; text-decoration:none}
   z-index:1;
 }
 
-.logo-title{
-  margin:0;
-  display:flex;
-  align-items:center;
-}
-
-.hero-logo{
-  width:100%;
-  max-width:520px;
-  height:auto;
-  display:block;
-
-  filter:
-    drop-shadow(0 0 20px rgba(241,198,92,.25))
-    drop-shadow(0 0 50px rgba(0,0,0,.7));
-}
-
 .aura{
   position:absolute;
   inset:-20%;
@@ -248,9 +329,7 @@ a{color:inherit; text-decoration:none}
   aspect-ratio: 1 / 1.05;
   transform-style: preserve-3d;
   perspective: 900px;
-
   animation: teeTurn 16s ease-in-out infinite;
-
   filter:
     drop-shadow(0 0 18px rgba(241,198,92,.10))
     drop-shadow(0 0 50px rgba(0,0,0,.55));
@@ -440,4 +519,25 @@ a{color:inherit; text-decoration:none}
   justify-content:flex-end;
   gap:10px;
   margin-top:6px;
+}
+
+/* ================= FOOTER SOCIAL ================= */
+
+.footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-top:28px;
+}
+
+.footer-social{
+  display:flex;
+  gap:14px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.footer-social a:hover{
+  color:#fff;
 }
