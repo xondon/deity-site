@@ -172,6 +172,7 @@ a{color:inherit; text-decoration:none}
 /* ================= PSEUDO 3D TEE (GUARANTEED BACK SHOW) ================= */
 
 /* ================= PSEUDO 3D TEE (FIX: ANIMATE A UNIQUE CLASS) ================= */
+/* ================= PSEUDO 3D TEE (WORKING) ================= */
 
 .tee3d-wrap{
   position:absolute;
@@ -198,7 +199,9 @@ a{color:inherit; text-decoration:none}
     drop-shadow(0 0 50px rgba(0,0,0,.55));
 }
 
+/* Force images to actually render */
 .tee-face{
+  display:block;
   position:absolute;
   inset:0;
   width:100%;
@@ -209,18 +212,19 @@ a{color:inherit; text-decoration:none}
   will-change: opacity;
 }
 
-/* Keep back oriented in 3D (NO opacity/animation on this selector) */
+/* Back orientation (ONLY transform lives here) */
 .tee-back{
   transform: rotateY(180deg) translateZ(18px);
 }
 
+/* rotation */
 @keyframes teeTurn{
   0%   { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
   50%  { transform: rotateY( 28deg) rotateX(6deg) scale(1.02); }
   100% { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
 }
 
-/* Animate ONLY these unique classes */
+/* visibility logic */
 .tee-front{
   opacity:1;
   z-index:2;
@@ -229,7 +233,6 @@ a{color:inherit; text-decoration:none}
     frontZ 16s steps(1,end) infinite;
 }
 
-/* back animation is on tee-back-face (unique) */
 .tee-back-face{
   opacity:0;
   z-index:1;
@@ -238,26 +241,26 @@ a{color:inherit; text-decoration:none}
     backZ 16s steps(1,end) infinite;
 }
 
-/* FRONT: hold → slower fade out → hidden → fade in */
+/* FRONT: hold → slow fade out → hidden → fade in */
 @keyframes frontOpacity{
   0%   { opacity:1; }
   32%  { opacity:1; }
-  50%  { opacity:0; }   /* slower fade out */
+  50%  { opacity:0; }
   88%  { opacity:0; }
   100% { opacity:1; }
 }
 
-/* BACK: hidden → fade in → hold → slower fade out */
+/* BACK: hidden → fade in → hold → slow fade out */
 @keyframes backOpacity{
   0%   { opacity:0; }
   30%  { opacity:0; }
-  44%  { opacity:1; }   /* fade in overlaps front fade-out */
+  44%  { opacity:1; }
   76%  { opacity:1; }
-  94%  { opacity:0; }   /* slower fade out */
+  94%  { opacity:0; }
   100% { opacity:0; }
 }
 
-/* z-index switching so active face is always on top */
+/* z-index switching */
 @keyframes frontZ{
   0%, 55%, 100% { z-index:2; }
   56%, 95%      { z-index:1; }
