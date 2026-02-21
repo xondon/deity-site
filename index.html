@@ -2,27 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg" sizes="64x64" href="/images/favicon.svg">
+
+  <!-- ✅ Better SVG favicon type -->
+  <link rel="icon" type="image/svg+xml" sizes="64x64" href="/images/favicon.svg">
+
   <title>DEITY — Modern Myth</title>
 
   <meta name="description"
         content="DEITY — ancient gods translated into modern dark streetwear. Weathered columns, mystic auras, and clean typography. Limited drops." />
 
   <!-- Absolute path for custom domain project site -->
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 
 <body>
   <div class="grain"></div>
 
   <header class="wrap header header-glow">
+    <!-- Left logo -->
     <div class="brand-logo">
       <img src="/images/deity-logo.png?v=3" alt="DEITY">
     </div>
 
+    <!-- ✅ Center logo (tight, true center) -->
+    <a class="brand-center" href="/" aria-label="Home">
+      <img src="/images/deity-logo.png?v=3" alt="DEITY centered">
+    </a>
+
+    <!-- Right nav -->
     <nav class="nav">
       <a class="nav-link" href="#drop">Drop</a>
-      <a class="nav-link" href="#contact">Contact</a>
+      <!-- ✅ Contact is now a button that opens modal -->
+      <button class="nav-link nav-btn-link" type="button" id="contactBtn">Contact</button>
     </nav>
   </header>
 
@@ -31,21 +42,20 @@
     <section class="hero">
       <div class="hero-left">
         <p class="kicker">Myth, worn into stone.</p>
+
         <h1 class="title logo-title">
-  <img src="images/deity-logo.png" alt="DEITY" class="hero-logo">
-  <span class="visually-hidden">DEITY</span>
-</h1>
+          <img src="images/deity-logo.png" alt="DEITY" class="hero-logo">
+          <span class="visually-hidden">DEITY</span>
+        </h1>
 
         <p class="sub">
           Ancient gods and old ideas reintroduced as modern dark streetwear—
-          your favorite ancient influencer is a Deity. 
+          your favorite ancient influencer is a Deity.
         </p>
 
         <div class="cta-row">
           <a class="btn primary rare" href="#drop">View the drop</a>
         </div>
-
-
       </div>
 
       <div class="hero-right">
@@ -100,11 +110,11 @@
 
           <div class="buy-row">
             <a class="btn primary"
-   href="https://shop.deityco.com/cart/43132932554886:1"
-   target="_blank"
-   rel="noopener">
-  Buy Now
-</a>
+               href="https://shop.deityco.com/cart/43132932554886:1"
+               target="_blank"
+               rel="noopener">
+              Buy Now
+            </a>
           </div>
         </div>
       </div>
@@ -116,8 +126,94 @@
 
   </main>
 
+  <!-- ✅ Contact Modal -->
+  <div class="modal-backdrop" id="contactModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+      <div class="modal-head">
+        <h2 id="contactTitle">Contact</h2>
+        <button class="modal-close" type="button" id="contactCloseBtn" aria-label="Close">✕</button>
+      </div>
+
+      <form class="modal-body" id="contactForm">
+        <label>
+          Name
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
+
+        <label>
+          Email
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+
+        <label>
+          Message
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn" id="contactCancelBtn">Cancel</button>
+          <button type="submit" class="btn primary">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
+    // Footer year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Contact modal logic
+    const modal = document.getElementById('contactModal');
+    const openBtn = document.getElementById('contactBtn');
+    const closeBtn = document.getElementById('contactCloseBtn');
+    const cancelBtn = document.getElementById('contactCancelBtn');
+    const form = document.getElementById('contactForm');
+
+    function openModal(){
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+
+      // Focus first input
+      const first = modal.querySelector('input, textarea, button');
+      if (first) first.focus();
+    }
+
+    function closeModal(){
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    // Click outside closes
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // ESC closes
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    // Submit handler (replace with your backend later)
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      // TODO: wire up backend:
+      // await fetch('/api/contact', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // });
+
+      alert('Message captured! (Hook up /api/contact when ready)');
+      form.reset();
+      closeModal();
+    });
   </script>
 </body>
 </html>
