@@ -219,17 +219,21 @@ a{color:inherit; text-decoration:none}
   100% { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
 }
 
-/* IMPORTANT: animate using the UNIQUE classes only */
+/* Animate faces + z-index switching so the visible face is always on top */
 .tee-front{
   opacity:1;
   z-index:2;
-  animation: faceFrontOpacity 16s ease-in-out infinite;
+  animation:
+    faceFrontOpacity 16s ease-in-out infinite,
+    frontZ 16s steps(1,end) infinite;
 }
 
 .tee-back{
   opacity:0;
   z-index:1;
-  animation: faceBackOpacity 16s ease-in-out infinite;
+  animation:
+    faceBackOpacity 16s ease-in-out infinite,
+    backZ 16s steps(1,end) infinite;
 }
 
 /* FRONT: hold → slower fade out → stay hidden → fade back in */
@@ -251,12 +255,14 @@ a{color:inherit; text-decoration:none}
   100% { opacity:0; }
 }
 
-/* Make sure the visible face is on top */
-.tee-front{ z-index: 2; }
-.tee-back{  z-index: 1; }
-
-@keyframes swapZ{
-  /* not used; keeping z-index static is enough with opacity overlap */
+/* z-index switching (prevents the back from being stuck underneath) */
+@keyframes frontZ{
+  0%, 55%, 100% { z-index:2; }
+  56%, 95%      { z-index:1; }
+}
+@keyframes backZ{
+  0%, 55%, 100% { z-index:1; }
+  56%, 95%      { z-index:2; }
 }
 
 .sigil{
