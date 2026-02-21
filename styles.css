@@ -27,6 +27,7 @@ a{color:inherit; text-decoration:none}
 /* ================= HEADER ================= */
 
 .header{
+  position:relative; /* ✅ needed for absolute-centered logo */
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -41,6 +42,30 @@ a{color:inherit; text-decoration:none}
   filter:drop-shadow(0 0 12px var(--goldA));
 }
 
+/* ✅ Center logo in header */
+.brand-center{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:auto;
+}
+
+.brand-center img{
+  height:46px; /* ✅ tweak this to taste */
+  width:auto;
+  display:block;
+  filter:drop-shadow(0 0 12px var(--goldA));
+  opacity:.95;
+}
+
+/* On small screens, hide center logo to prevent overlap */
+@media (max-width: 640px){
+  .brand-center{ display:none; }
+}
+
 .nav{
   display:flex;
   gap:18px;
@@ -48,6 +73,7 @@ a{color:inherit; text-decoration:none}
   color:var(--muted);
 }
 
+/* nav-link currently assumes <a>. We support <button> too */
 .nav-link{
   padding:10px 0;
   transition:color .15s ease;
@@ -55,6 +81,16 @@ a{color:inherit; text-decoration:none}
 
 .nav-link:hover{
   color:white;
+}
+
+/* ✅ make Contact button look like link */
+.nav-btn-link{
+  appearance:none;
+  border:none;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  cursor:pointer;
 }
 
 /* ================= HERO ================= */
@@ -110,6 +146,7 @@ a{color:inherit; text-decoration:none}
   letter-spacing:.1em;
   background:transparent;
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  color:inherit;
 }
 
 .btn:hover{
@@ -132,6 +169,7 @@ a{color:inherit; text-decoration:none}
     drop-shadow(0 0 80px rgba(241,198,92,.25));
   transition: filter .4s ease;
 }
+
 /* ================= AURA CARD ================= */
 
 .hero-right{
@@ -182,6 +220,7 @@ a{color:inherit; text-decoration:none}
     drop-shadow(0 0 20px rgba(241,198,92,.25))
     drop-shadow(0 0 50px rgba(0,0,0,.7));
 }
+
 .aura{
   position:absolute;
   inset:-20%;
@@ -303,6 +342,7 @@ a{color:inherit; text-decoration:none}
   backdrop-filter: blur(8px);
   z-index:3;
 }
+
 .visually-hidden{
   position:absolute;
   width:1px;
@@ -312,4 +352,100 @@ a{color:inherit; text-decoration:none}
   overflow:hidden;
   clip:rect(0,0,0,0);
   border:0;
+}
+
+/* ================= CONTACT MODAL ================= */
+
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  display:none;
+  place-items:center;
+  background: rgba(0,0,0,.60);
+  padding:16px;
+  z-index:9999;
+}
+
+.modal-backdrop.is-open{
+  display:grid;
+}
+
+.modal{
+  width:min(540px, 100%);
+  border-radius:18px;
+  border:1px solid rgba(233,230,223,.14);
+  background: rgba(7,7,7,.82);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 90px rgba(0,0,0,.6);
+  overflow:hidden;
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(233,230,223,.08);
+}
+
+.modal-head h2{
+  margin:0;
+  font-size:14px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color: var(--fg);
+}
+
+.modal-close{
+  appearance:none;
+  border:none;
+  background:transparent;
+  color: var(--fg);
+  font-size:18px;
+  cursor:pointer;
+  padding:6px 8px;
+  border-radius:10px;
+}
+
+.modal-close:hover{
+  background: rgba(233,230,223,.06);
+}
+
+.modal-body{
+  display:grid;
+  gap:12px;
+  padding:16px;
+}
+
+.modal-body label{
+  display:grid;
+  gap:6px;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color: var(--muted);
+}
+
+.modal-body input,
+.modal-body textarea{
+  width:100%;
+  padding:11px 12px;
+  border-radius:14px;
+  border:1px solid rgba(233,230,223,.14);
+  background: rgba(7,7,7,.55);
+  color: var(--fg);
+  outline:none;
+}
+
+.modal-body input:focus,
+.modal-body textarea:focus{
+  border-color: rgba(241,198,92,.35);
+  box-shadow: 0 0 0 4px rgba(241,198,92,.12);
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:6px;
 }
