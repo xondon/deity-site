@@ -280,3 +280,5 @@ a{color:inherit; text-decoration:none}
   backdrop-filter: blur(8px);
   z-index:3;
 }
+.tee-back{ opacity:1 !important; }
+.tee-front{ opacity:0 !important; }
