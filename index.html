@@ -12,7 +12,7 @@ console.log("Visitor from:", document.referrer);
 <meta name="description"
 content="DEITY — ancient gods translated into modern dark streetwear." />
 
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=9">
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -172,48 +172,19 @@ src="/images/tee-back.png?v=3">
 
 
 
-<!-- DROP -->
+<!-- DROP (rendered from products.json — managed via /admin.html) -->
 
 <section class="drop" id="drop">
 
 <div class="section-head">
 
-<h2>Drop 002</h2>
+<h2 id="dropTitle">Drop</h2>
 
-<p>Become a Deity</p>
-
-</div>
-
-
-<div class="product">
-
-<div class="product-info">
-
-<h3>DEITY Tee — Ash / Gold</h3>
-
-<p class="desc">
-
-Ash faded black tee with DEITY in gold across the front.
-
-</p>
-
-
-<div class="buy-row">
-
-<a class="btn primary"
-href="https://shop.deityco.com/cart/43142552125574:1"
-target="_blank"
-rel="noopener">
-
-Buy Now
-
-</a>
+<p id="dropTagline"></p>
 
 </div>
 
-</div>
-
-</div>
+<div class="product-grid" id="productGrid"></div>
 
 </section>
 
@@ -283,6 +254,60 @@ Join
 
 document.getElementById("y").textContent =
 new Date().getFullYear();
+
+// Renders the drop grid from products.json — this is the file
+// admin.html writes to, so new designs show up here automatically.
+fetch('/products.json?v=' + Date.now())
+.then(function(res){ return res.json(); })
+.then(function(data){
+  document.getElementById('dropTitle').textContent = data.dropTitle || 'Drop';
+  document.getElementById('dropTagline').textContent = data.dropTagline || '';
+
+  var grid = document.getElementById('productGrid');
+  var products = (data.products || []).filter(function(p){ return p.active !== false; });
+
+  if (products.length === 0) {
+    grid.innerHTML = '<p class="empty-drop">New designs dropping soon.</p>';
+    return;
+  }
+
+  products.forEach(function(p){
+    var card = document.createElement('div');
+    card.className = 'product';
+
+    var imageHtml;
+    if (p.frontImage) {
+      imageHtml =
+        '<div class="product-image">' +
+          '<img class="img-front" src="' + p.frontImage + '" alt="' + escapeHtml(p.name) + ' — front">' +
+          (p.backImage ? '<img class="img-back" src="' + p.backImage + '" alt="' + escapeHtml(p.name) + ' — back">' : '') +
+        '</div>';
+    } else {
+      imageHtml = '<div class="product-image no-image">Image coming soon</div>';
+    }
+
+    card.innerHTML =
+      imageHtml +
+      '<div class="product-info">' +
+        '<h3>' + escapeHtml(p.name) + '</h3>' +
+        '<p class="desc">' + escapeHtml(p.desc || '') + '</p>' +
+        '<div class="buy-row">' +
+          '<a class="btn primary" href="' + p.buyUrl + '" target="_blank" rel="noopener">Buy Now — $' + p.price + '</a>' +
+        '</div>' +
+      '</div>';
+
+    grid.appendChild(card);
+  });
+})
+.catch(function(err){
+  console.error('Could not load products.json', err);
+});
+
+function escapeHtml(str){
+  var div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
 
 </script>
 

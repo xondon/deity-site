@@ -1,0 +1,16 @@
+{
+  "dropTitle": "Drop 002",
+  "dropTagline": "Become a Deity",
+  "products": [
+    {
+      "id": "drop002-ash-gold",
+      "name": "DEITY Tee — Ash / Gold",
+      "desc": "Ash faded black tee with DEITY in gold across the front.",
+      "price": 60,
+      "frontImage": "",
+      "backImage": "",
+      "buyUrl": "https://shop.deityco.com/cart/43142552125574:1",
+      "active": true
+    }
+  ]
+}

@@ -815,3 +815,134 @@ left:140%;
   .title{ font-size: 42px; }
   .aura-card{ width: 100%; }
 }
+
+/* ================= DYNAMIC PRODUCT GRID (admin-managed) ================= */
+
+.section-head{
+  margin-bottom:22px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size:14px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+
+.section-head p{
+  margin:8px 0 0;
+  color:var(--muted);
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:22px;
+}
+
+.product{
+  border-radius:24px;
+  border:1px solid rgba(233,230,223,.1);
+  background: linear-gradient(180deg, rgba(233,230,223,.04), rgba(233,230,223,.02));
+  box-shadow:0 18px 70px rgba(0,0,0,.5);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.product:hover{
+  transform: translateY(-3px);
+  box-shadow:0 24px 80px rgba(0,0,0,.6), 0 0 30px var(--goldC);
+}
+
+.product-image{
+  position:relative;
+  aspect-ratio:4/5;
+  background:
+    radial-gradient(circle at center, var(--goldC), transparent 65%),
+    rgba(7,7,7,.4);
+  overflow:hidden;
+}
+
+.product-image img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:18px;
+  transition: opacity .35s ease;
+}
+
+.product-image .img-front{
+  opacity:1;
+  z-index:2;
+}
+
+.product-image .img-back{
+  opacity:0;
+  z-index:1;
+}
+
+.product-image:hover .img-front{
+  opacity:0;
+}
+
+.product-image:hover .img-back{
+  opacity:1;
+}
+
+.product-image.no-image{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.product-info{
+  padding:18px 20px 22px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.product-info h3{
+  margin:0 0 8px;
+  font-size:16px;
+  letter-spacing:.04em;
+}
+
+.product-info .desc{
+  margin:0 0 16px;
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.55;
+  flex:1;
+}
+
+.product-info .buy-row{
+  margin-top:auto;
+}
+
+.product-info .buy-row .btn{
+  width:100%;
+}
+
+.empty-drop{
+  color:var(--muted);
+  text-align:center;
+  padding:40px 0;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:13px;
+}
+
+@media (max-width: 640px){
+  .product-grid{
+    grid-template-columns:1fr;
+  }
+}
