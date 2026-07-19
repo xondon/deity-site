@@ -1,5 +1,5 @@
 {
-  "dropTitle": "Drop 003",
+  "dropTitle": "Drop 004",
   "dropTagline": "Become a Deity",
   "products": [
     {
@@ -10,6 +10,26 @@
       "frontImage": "/images/deity-zeus-front-1784479141959.png",
       "backImage": "/images/deity-zeus-back-1784479141965.png",
       "buyUrl": "https://shop.deityco.com/products/zeus-deity-snow-washed-oversized-cotton-t-shirt?_su_rec=5lFHnUpIUzBQJ4CytwW5GbRoYfHBJQcXRgjSdD56CPB4HTkEmlmdFjwKRGrgK4Qqo4zS6aDh_pzI-5CbnCUZLgLTyF0c2gmdkQfj_ZoWR0fAMbLSvnn0-_vldumI-fgsevdQj3kiWnhVX6NvgEyDZbBQ5BrLWTbfKr2WTqzNa7VnYXAThC-2vH2jxy8nULWYKcG34iXW7Ff2G8DGs59yde10s5QCQ2Nx0xNXMtFpd_63LSGijSJ_c4jH21lhv6-BSR46RzFI39U58AN6ajDUe9l9&_su_rec_id=391bf80d-92d5-484d-ab31-ec3933be9a96-1784479102",
+      "active": true
+    },
+    {
+      "id": "deity-poseidon-1784479289446",
+      "name": "DEITY Poseidon",
+      "desc": "Snow faded tee Poseidon Deity",
+      "price": 60,
+      "frontImage": "/images/deity-poseidon-front-1784479289438.png",
+      "backImage": "/images/deity-poseidon-back-1784479289446.png",
+      "buyUrl": "https://shop.deityco.com/products/poseidon-deity-snow-washed-oversized-cotton-t-shirt",
+      "active": true
+    },
+    {
+      "id": "deity-hades-1784479335829",
+      "name": "DEITY Hades",
+      "desc": "Snow faded tee Hades Deity",
+      "price": 60,
+      "frontImage": "/images/deity-hades-front-1784479335824.png",
+      "backImage": "/images/deity-hades-back-1784479335829.png",
+      "buyUrl": "https://shop.deityco.com/products/hades-deity-snow-washed-oversized-cotton-t-shirt?_su_rec=NsTexzKrCvmMVIAw7XNpGgZ7RO3ko2w3Lg3ba6EVm7JRmChk-JsCL_JnnKdMKClFPNmbA-DzxRyLruYo-yYThyASZ3q34elHerzARyQyOYZhJQQnUlBwZZ6FUgM5EwXvc9XNj-kpvc_AuMmyozFhoqPte4SMAkBv7nsKtT3xdam-Wq0oXb708D-G2sVANmhBsnat3kZPUvDQMErX-vaI_abHyGxV_c3is_8p-j8eJG8iOLCQwV9VHG2JPPudDMLuy8Jb1AabTnmmnYkP7w&_su_rec_id=58f02777-9d26-474e-b46b-45828733ceb3-1784479319",
       "active": true
     }
   ]
