@@ -12,7 +12,7 @@ console.log("Visitor from:", document.referrer);
 <meta name="description"
 content="DEITY — ancient gods translated into modern dark streetwear." />
 
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=10">
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -257,28 +257,45 @@ new Date().getFullYear();
 
 // Renders the drop grid from products.json — this is the file
 // admin.html writes to, so new designs show up here automatically.
+// Also drives the hero's rotating tee, cycling through every design
+// that has both a front and back image.
 fetch('/products.json?v=' + Date.now())
 .then(function(res){ return res.json(); })
 .then(function(data){
   document.getElementById('dropTitle').textContent = data.dropTitle || 'Drop';
   document.getElementById('dropTagline').textContent = data.dropTagline || '';
 
+  var allProducts = data.products || [];
+  var activeProducts = allProducts.filter(function(p){ return p.active !== false; });
+
+  renderGrid(activeProducts);
+  cycleHero(activeProducts.filter(function(p){ return p.frontImage && p.backImage; }));
+})
+.catch(function(err){
+  console.error('Could not load products.json', err);
+});
+
+function renderGrid(products){
   var grid = document.getElementById('productGrid');
-  var products = (data.products || []).filter(function(p){ return p.active !== false; });
 
   if (products.length === 0) {
     grid.innerHTML = '<p class="empty-drop">New designs dropping soon.</p>';
     return;
   }
 
-  products.forEach(function(p){
+  products.forEach(function(p, i){
     var card = document.createElement('div');
     card.className = 'product';
+
+    // previewFace lets a design default to showing the back on the
+    // card (useful when every front looks the same) — hover always
+    // reveals the other side either way.
+    var showBackFirst = p.previewFace === 'back';
 
     var imageHtml;
     if (p.frontImage) {
       imageHtml =
-        '<div class="product-image">' +
+        '<div class="product-image' + (showBackFirst ? ' flipped' : '') + '">' +
           '<img class="img-front" src="' + p.frontImage + '" alt="' + escapeHtml(p.name) + ' — front">' +
           (p.backImage ? '<img class="img-back" src="' + p.backImage + '" alt="' + escapeHtml(p.name) + ' — back">' : '') +
         '</div>';
@@ -286,22 +303,50 @@ fetch('/products.json?v=' + Date.now())
       imageHtml = '<div class="product-image no-image">Image coming soon</div>';
     }
 
+    // Stagger each button's gleam so they never sweep in sync.
+    var shineDelay = (i * 3.7) % 15;
+
     card.innerHTML =
       imageHtml +
       '<div class="product-info">' +
         '<h3>' + escapeHtml(p.name) + '</h3>' +
         '<p class="desc">' + escapeHtml(p.desc || '') + '</p>' +
         '<div class="buy-row">' +
-          '<a class="btn primary" href="' + p.buyUrl + '" target="_blank" rel="noopener">Buy Now — $' + p.price + '</a>' +
+          '<a class="btn primary" style="--shine-delay:' + shineDelay + 's" href="' + p.buyUrl + '" target="_blank" rel="noopener">Buy Now — $' + p.price + '</a>' +
         '</div>' +
       '</div>';
 
     grid.appendChild(card);
   });
-})
-.catch(function(err){
-  console.error('Could not load products.json', err);
-});
+}
+
+// Cycles the hero's rotating tee through every design that has both
+// a front and back image. Timings match the CSS animation in
+// styles.css (16s per full turn): the front image is swapped while
+// it's invisible mid-turn (~60% in), and the back image is swapped
+// while it's invisible at the wrap-around (~95% in), so the switch
+// itself is never visible — it just looks like the next drop turning into view.
+function cycleHero(products){
+  var front = document.querySelector('.tee-front');
+  var back = document.querySelector('.tee-back');
+  if (!front || !back || products.length === 0) return;
+
+  var CYCLE_MS = 16000;
+  var idx = 0;
+
+  front.src = products[0].frontImage;
+  back.src = products[0].backImage;
+
+  function scheduleNext(){
+    idx = (idx + 1) % products.length;
+    var next = products[idx];
+    setTimeout(function(){ front.src = next.frontImage; }, CYCLE_MS * 0.6);
+    setTimeout(function(){ back.src = next.backImage; }, CYCLE_MS * 0.95);
+    setTimeout(scheduleNext, CYCLE_MS);
+  }
+
+  if (products.length > 1) scheduleNext();
+}
 
 function escapeHtml(str){
   var div = document.createElement('div');

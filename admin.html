@@ -59,7 +59,7 @@
     margin:16px 0 6px;
   }
   label:first-of-type{ margin-top:0; }
-  input[type=text], input[type=number], input[type=url], input[type=password], textarea{
+  input[type=text], input[type=number], input[type=url], input[type=password], textarea, select{
     width:100%;
     background: rgba(7,7,7,.55);
     border:1px solid rgba(233,230,223,.14);
@@ -70,7 +70,7 @@
     font-family:inherit;
     outline:none;
   }
-  input:focus, textarea:focus{
+  input:focus, textarea:focus, select:focus{
     border-color: rgba(241,198,92,.35);
     box-shadow: 0 0 0 4px rgba(241,198,92,.12);
   }
@@ -206,7 +206,7 @@
         <div>
           <label>Front image</label>
           <input type="file" id="pFrontFile" accept="image/*">
-          <p class="hint" id="pFrontHint">Shown by default on the card.</p>
+          <p class="hint" id="pFrontHint">Shown by default on the card (unless flipped below).</p>
         </div>
         <div>
           <label>Back image</label>
@@ -214,6 +214,12 @@
           <p class="hint" id="pBackHint">Shown on hover, next to the front.</p>
         </div>
       </div>
+      <label>Card preview</label>
+      <select id="pPreviewFace">
+        <option value="front">Show front by default (hover reveals back)</option>
+        <option value="back">Show back by default (hover reveals front)</option>
+      </select>
+      <p class="hint">Handy when every front looks the same and the back print is what's unique.</p>
       <div class="checkbox-row">
         <input type="checkbox" id="pActive" checked>
         <label>Live on site</label>
@@ -386,6 +392,7 @@ async function saveProduct(){
     price: Number(price),
     frontImage: frontImage,
     backImage: backImage,
+    previewFace: document.getElementById('pPreviewFace').value,
     buyUrl: buyUrl,
     active: active
   };
@@ -413,6 +420,7 @@ function editProduct(id){
   document.getElementById('pActive').checked = p.active !== false;
   document.getElementById('pFrontFile').value = '';
   document.getElementById('pBackFile').value = '';
+  document.getElementById('pPreviewFace').value = p.previewFace === 'back' ? 'back' : 'front';
   document.getElementById('pFrontHint').textContent = p.frontImage
     ? 'Current: ' + p.frontImage + '. Choose a file to replace it.'
     : 'Shown by default on the card.';
@@ -434,6 +442,7 @@ function cancelEdit(){
   document.getElementById('pActive').checked = true;
   document.getElementById('pFrontFile').value = '';
   document.getElementById('pBackFile').value = '';
+  document.getElementById('pPreviewFace').value = 'front';
   document.getElementById('pFrontHint').textContent = 'Shown by default on the card.';
   document.getElementById('pBackHint').textContent = 'Shown on hover, next to the front.';
   document.getElementById('formHeading').textContent = 'Add a Design';

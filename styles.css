@@ -640,7 +640,10 @@ box-shadow:
 }
 
 
-/* Moving light shine */
+/* Moving light shine — sweeps once, then rests, so it reads as an
+   occasional glint rather than a constant shimmer. Each button gets
+   its own --shine-delay (set inline per card) so they don't all
+   fire in sync. */
 
 .buy-row .btn.primary::after{
 
@@ -665,7 +668,8 @@ transparent
 
 transform:rotate(25deg);
 
-animation: shineMove 4s linear infinite;
+animation: shineMove 15s linear infinite;
+animation-delay: var(--shine-delay, 0s);
 
 }
 
@@ -674,6 +678,10 @@ animation: shineMove 4s linear infinite;
 
 0%{
 left:-40%;
+}
+
+27%{
+left:140%;
 }
 
 100%{
@@ -836,7 +844,7 @@ left:140%;
 
 .product-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));
   gap:22px;
 }
 
@@ -871,7 +879,7 @@ left:140%;
   width:100%;
   height:100%;
   object-fit:contain;
-  padding:18px;
+  padding:8px;
   transition: opacity .35s ease;
 }
 
@@ -891,6 +899,22 @@ left:140%;
 
 .product-image:hover .img-back{
   opacity:1;
+}
+
+.product-image.flipped .img-front{
+  opacity:0;
+}
+
+.product-image.flipped .img-back{
+  opacity:1;
+}
+
+.product-image.flipped:hover .img-front{
+  opacity:1;
+}
+
+.product-image.flipped:hover .img-back{
+  opacity:0;
 }
 
 .product-image.no-image{
