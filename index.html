@@ -12,7 +12,7 @@ console.log("Visitor from:", document.referrer);
 <meta name="description"
 content="DEITY — ancient gods translated into modern dark streetwear." />
 
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -309,6 +309,7 @@ function renderGrid(products){
     card.innerHTML =
       imageHtml +
       '<div class="product-info">' +
+        (p.drop ? '<span class="product-drop">' + escapeHtml(p.drop) + '</span>' : '') +
         '<h3>' + escapeHtml(p.name) + '</h3>' +
         '<p class="desc">' + escapeHtml(p.desc || '') + '</p>' +
         '<div class="buy-row">' +

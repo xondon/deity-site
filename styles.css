@@ -827,19 +827,23 @@ left:140%;
 /* ================= DYNAMIC PRODUCT GRID (admin-managed) ================= */
 
 .section-head{
-  margin-bottom:22px;
+  margin-bottom:36px;
+  text-align:center;
 }
 
 .section-head h2{
   margin:0;
-  font-size:14px;
-  letter-spacing:.22em;
+  font-size:12px;
+  letter-spacing:.3em;
   text-transform:uppercase;
+  color: var(--muted);
 }
 
 .section-head p{
-  margin:8px 0 0;
-  color:var(--muted);
+  margin:10px 0 0;
+  font-size:22px;
+  letter-spacing:.02em;
+  color:var(--fg);
 }
 
 .product-grid{
@@ -938,6 +942,15 @@ left:140%;
   margin:0 0 8px;
   font-size:16px;
   letter-spacing:.04em;
+}
+
+.product-drop{
+  display:inline-block;
+  font-size:10.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color: rgb(241,198,92);
+  margin-bottom:8px;
 }
 
 .product-info .desc{

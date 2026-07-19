@@ -145,15 +145,29 @@
   .hint{ font-size:11.5px; color:var(--muted); margin-top:6px; line-height:1.6; }
   .locked #app{ display:none; }
   .unlocked #gate{ display:none; }
+  #passwordGate{ display:none; }
+  body.stage-password #passwordGate{ display:block; }
+  body.stage-password #gate{ display:none; }
+  body.stage-password #app{ display:none; }
   .empty{ color:var(--muted); font-size:13px; padding:20px 0; text-align:center; }
 </style>
 </head>
-<body class="locked">
+<body class="stage-password">
 <div class="wrap">
   <h1>DEITY — ADMIN</h1>
   <p class="sub">Add and manage designs directly — no code required.</p>
 
   <div id="status" class="status"></div>
+
+  <!-- PASSWORD GATE -->
+  <div class="panel" id="passwordGate">
+    <h2>Enter Password</h2>
+    <label>Password</label>
+    <input type="password" id="sitePassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPassword()">
+    <div class="actions">
+      <button class="btn-primary" onclick="checkPassword()">Unlock</button>
+    </div>
+  </div>
 
   <!-- GATE -->
   <div class="panel" id="gate">
@@ -190,6 +204,9 @@
       <h2 id="formHeading">Add a Design</h2>
       <label>Name</label>
       <input type="text" id="pName" placeholder="DEITY Tee — Poseidon">
+      <label>Drop label</label>
+      <input type="text" id="pDrop" placeholder="Drop 004">
+      <p class="hint">Shows as a small badge on the card. Leave blank to hide it.</p>
       <label>Description</label>
       <textarea id="pDesc" placeholder="Faded navy tee with Poseidon engraving across the back."></textarea>
       <div class="row">
@@ -275,6 +292,24 @@ async function gh(path, options){
   return res.status === 204 ? null : res.json();
 }
 
+// Front-end password gate. This only screens out casual visitors and
+// crawlers — anyone who views this page's source can read the check
+// below. The GitHub token is the real access control (nothing can be
+// published without a valid token), so treat this as a lightweight
+// door, not a lock.
+const SITE_PASSWORD = 'Xonbronco2018';
+
+function checkPassword(){
+  const entered = document.getElementById('sitePassword').value;
+  if (entered === SITE_PASSWORD){
+    sessionStorage.setItem('deity_admin_unlocked', '1');
+    document.body.className = 'locked';
+    clearStatus();
+  } else {
+    setStatus('Incorrect password.', 'error');
+  }
+}
+
 async function connect(){
   const t = document.getElementById('token').value.trim();
   if (!t){ setStatus('Enter a token first.', 'error'); return; }
@@ -293,9 +328,11 @@ async function connect(){
 
 function disconnect(){
   localStorage.removeItem('deity_admin_token');
+  sessionStorage.removeItem('deity_admin_unlocked');
   token = null;
-  document.body.className = 'locked';
+  document.body.className = 'stage-password';
   document.getElementById('token').value = '';
+  document.getElementById('sitePassword').value = '';
 }
 
 async function loadProducts(){
@@ -330,7 +367,7 @@ function renderProductList(){
       '<div class="info">' +
         '<h3>' + p.name + '</h3>' +
         '<p>' + (p.desc || '') + '</p>' +
-        '<div class="meta">$' + p.price + (p.active === false ? ' · hidden' : ' · live') + '</div>' +
+        '<div class="meta">' + (p.drop ? p.drop + ' · ' : '') + '$' + p.price + (p.active === false ? ' · hidden' : ' · live') + '</div>' +
       '</div>' +
       '<div class="card-actions">' +
         '<button onclick="editProduct(\'' + p.id + '\')">Edit</button>' +
@@ -388,6 +425,7 @@ async function saveProduct(){
   const product = {
     id: editingId || (slug + '-' + Date.now()),
     name: name,
+    drop: document.getElementById('pDrop').value.trim(),
     desc: desc,
     price: Number(price),
     frontImage: frontImage,
@@ -414,6 +452,7 @@ function editProduct(id){
   if (!p) return;
   editingId = id;
   document.getElementById('pName').value = p.name;
+  document.getElementById('pDrop').value = p.drop || '';
   document.getElementById('pDesc').value = p.desc || '';
   document.getElementById('pPrice').value = p.price;
   document.getElementById('pBuyUrl').value = p.buyUrl;
@@ -436,6 +475,7 @@ function editProduct(id){
 function cancelEdit(){
   editingId = null;
   document.getElementById('pName').value = '';
+  document.getElementById('pDrop').value = '';
   document.getElementById('pDesc').value = '';
   document.getElementById('pPrice').value = '';
   document.getElementById('pBuyUrl').value = '';
@@ -493,10 +533,13 @@ async function publish(){
 }
 
 window.addEventListener('DOMContentLoaded', function(){
-  const saved = localStorage.getItem('deity_admin_token');
-  if (saved){
-    document.getElementById('token').value = saved;
-    connect();
+  if (sessionStorage.getItem('deity_admin_unlocked') === '1'){
+    document.body.className = 'locked';
+    const saved = localStorage.getItem('deity_admin_token');
+    if (saved){
+      document.getElementById('token').value = saved;
+      connect();
+    }
   }
 });
 </script>
