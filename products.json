@@ -1,15 +1,15 @@
 {
-  "dropTitle": "Drop 002",
+  "dropTitle": "Drop 003",
   "dropTagline": "Become a Deity",
   "products": [
     {
-      "id": "drop002-ash-gold",
-      "name": "DEITY Tee — Ash / Gold",
-      "desc": "Ash faded black tee with DEITY in gold across the front.",
+      "id": "deity-zeus-1784479141965",
+      "name": "DEITY Zeus",
+      "desc": "Snow faded tee Zeus Deity",
       "price": 60,
-      "frontImage": "",
-      "backImage": "",
-      "buyUrl": "https://shop.deityco.com/cart/43142552125574:1",
+      "frontImage": "/images/deity-zeus-front-1784479141959.png",
+      "backImage": "/images/deity-zeus-back-1784479141965.png",
+      "buyUrl": "https://shop.deityco.com/products/zeus-deity-snow-washed-oversized-cotton-t-shirt?_su_rec=5lFHnUpIUzBQJ4CytwW5GbRoYfHBJQcXRgjSdD56CPB4HTkEmlmdFjwKRGrgK4Qqo4zS6aDh_pzI-5CbnCUZLgLTyF0c2gmdkQfj_ZoWR0fAMbLSvnn0-_vldumI-fgsevdQj3kiWnhVX6NvgEyDZbBQ5BrLWTbfKr2WTqzNa7VnYXAThC-2vH2jxy8nULWYKcG34iXW7Ff2G8DGs59yde10s5QCQ2Nx0xNXMtFpd_63LSGijSJ_c4jH21lhv6-BSR46RzFI39U58AN6ajDUe9l9&_su_rec_id=391bf80d-92d5-484d-ab31-ec3933be9a96-1784479102",
       "active": true
     }
   ]
