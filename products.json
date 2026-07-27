@@ -85,6 +85,30 @@
       "previewFace": "back",
       "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-66",
       "active": true
+    },
+    {
+      "id": "deity-tee-osiris-1785119737829",
+      "name": "DEITY Tee Osiris",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-osiris-front-1785119737816.png",
+      "backImage": "/images/deity-tee-osiris-back-1785119737829.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-74",
+      "active": true
+    },
+    {
+      "id": "deity-tee-anubis-1785119899874",
+      "name": "DEITY Tee Anubis",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-anubis-front-1785119899867.png",
+      "backImage": "/images/deity-tee-anubis-back-1785119899874.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-54",
+      "active": true
     }
   ]
 }
