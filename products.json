@@ -73,6 +73,18 @@
       "previewFace": "back",
       "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-65",
       "active": true
+    },
+    {
+      "id": "deity-tee-ra-1785116743380",
+      "name": "DEITY Tee Ra",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-ra-front-1785116743373.png",
+      "backImage": "/images/deity-tee-ra-back-1785116743380.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-66",
+      "active": true
     }
   ]
 }
