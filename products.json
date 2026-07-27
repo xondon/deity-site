@@ -109,6 +109,42 @@
       "previewFace": "back",
       "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-54",
       "active": true
+    },
+    {
+      "id": "deity-tee-susanoo-1785120024277",
+      "name": "DEITY Tee Susanoo",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-susanoo-front-1785120024270.png",
+      "backImage": "/images/deity-tee-susanoo-back-1785120024277.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-57",
+      "active": true
+    },
+    {
+      "id": "deity-tee-tsukuyomi-1785120163587",
+      "name": "DEITY Tee Tsukuyomi",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-tsukuyomi-front-1785120163581.png",
+      "backImage": "/images/deity-tee-tsukuyomi-back-1785120163587.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-56",
+      "active": true
+    },
+    {
+      "id": "deity-tee-amaterasu-1785120284607",
+      "name": "DEITY Tee Amaterasu",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-amaterasu-front-1785120284600.png",
+      "backImage": "/images/deity-tee-amaterasu-back-1785120284607.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-55",
+      "active": true
     }
   ]
 }
