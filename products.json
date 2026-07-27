@@ -3,13 +3,13 @@
   "dropTagline": "Become a Deity",
   "products": [
     {
-      "id": "deity-zeus-1785114375894",
-      "name": "DEITY Zeus",
+      "id": "deity-tee-zeus-1785114749595",
+      "name": "DEITY Tee Zeus",
       "drop": "",
       "desc": "",
       "price": 60,
-      "frontImage": "/images/deity-zeus-front-1785114375893.webp",
-      "backImage": "/images/deity-zeus-back-1785114375894.webp",
+      "frontImage": "/images/deity-tee-zeus-front-1785114749585.png",
+      "backImage": "/images/deity-tee-zeus-back-1785114749595.png",
       "previewFace": "back",
       "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-71",
       "active": true
