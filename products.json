@@ -37,6 +37,42 @@
       "previewFace": "back",
       "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-70",
       "active": true
+    },
+    {
+      "id": "deity-tee-thor-1785115780591",
+      "name": "DEITY Tee Thor",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-thor-front-1785115780584.png",
+      "backImage": "/images/deity-tee-thor-back-1785115780591.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-68",
+      "active": true
+    },
+    {
+      "id": "deity-tee-odin-1785115919242",
+      "name": "DEITY Tee Odin",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-odin-front-1785115919236.png",
+      "backImage": "/images/deity-tee-odin-back-1785115919242.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-67",
+      "active": true
+    },
+    {
+      "id": "deity-tee-loki-1785116434056",
+      "name": "DEITY Tee Loki",
+      "drop": "",
+      "desc": "",
+      "price": 60,
+      "frontImage": "/images/deity-tee-loki-front-1785116434046.png",
+      "backImage": "/images/deity-tee-loki-back-1785116434056.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-65",
+      "active": true
     }
   ]
 }
