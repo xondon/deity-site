@@ -12,7 +12,7 @@ console.log("Visitor from:", document.referrer);
 <meta name="description"
 content="DEITY — ancient gods translated into modern dark streetwear." />
 
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -254,6 +254,26 @@ Join
 
 document.getElementById("y").textContent =
 new Date().getFullYear();
+
+// "Myth, worn into stone." — carve the kicker line in letter by
+// letter on load, like a chisel striking each character into place,
+// then it settles into a permanent engraved look (see .chisel-letter
+// in styles.css).
+(function(){
+  var kicker = document.querySelector('.kicker');
+  if (!kicker) return;
+  var text = kicker.textContent;
+  kicker.setAttribute('aria-label', text);
+  kicker.textContent = '';
+  Array.from(text).forEach(function(ch, i){
+    var span = document.createElement('span');
+    span.className = 'chisel-letter';
+    span.setAttribute('aria-hidden', 'true');
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    span.style.animationDelay = (i * 32) + 'ms';
+    kicker.appendChild(span);
+  });
+})();
 
 // Renders the drop grid from products.json — this is the file
 // admin.html writes to, so new designs show up here automatically.
