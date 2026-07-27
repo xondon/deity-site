@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /deity-manage-7kq2.html
