@@ -13,30 +13,6 @@
       "previewFace": "back",
       "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-71",
       "active": true
-    },
-    {
-      "id": "deity-tee-poseidon-1785115073434",
-      "name": "DEITY Tee Poseidon",
-      "drop": "",
-      "desc": "",
-      "price": 60,
-      "frontImage": "/images/deity-tee-poseidon-front-1785115073428.webp",
-      "backImage": "/images/deity-tee-poseidon-back-1785115073434.png",
-      "previewFace": "back",
-      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-69",
-      "active": true
-    },
-    {
-      "id": "deity-tee-hades-1785115198623",
-      "name": "DEITY Tee Hades",
-      "drop": "",
-      "desc": "",
-      "price": 60,
-      "frontImage": "/images/deity-tee-hades-front-1785115198617.webp",
-      "backImage": "/images/deity-tee-hades-back-1785115198623.png",
-      "previewFace": "back",
-      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-70",
-      "active": true
     }
   ]
 }
