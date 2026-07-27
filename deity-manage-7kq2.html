@@ -113,7 +113,21 @@
     border-radius:16px;
     margin-bottom:10px;
     align-items:flex-start;
+    cursor:grab;
+    transition: opacity .15s ease, border-color .15s ease;
   }
+  .product-card.dragging{ opacity:.35; }
+  .product-card:hover{ border-color: rgba(233,230,223,.18); }
+  .drag-handle{
+    flex-shrink:0;
+    color:var(--muted);
+    font-size:18px;
+    line-height:56px;
+    user-select:none;
+    cursor:grab;
+  }
+  .reorder-btns{ display:flex; flex-direction:column; gap:4px; }
+  .reorder-btns button{ padding:2px 8px; font-size:10px; line-height:1.4; }
   .product-card .thumbs{ display:flex; gap:6px; flex-shrink:0; }
   .product-card img{
     width:56px; height:56px; object-fit:cover; border-radius:8px;
@@ -354,9 +368,11 @@ function renderProductList(){
     return;
   }
   list.innerHTML = '';
-  productsData.products.forEach(function(p){
+  productsData.products.forEach(function(p, i){
     const card = document.createElement('div');
     card.className = 'product-card' + (p.active === false ? ' inactive' : '');
+    card.draggable = true;
+    card.dataset.id = p.id;
     const frontThumb = p.frontImage
       ? '<img src="https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + p.frontImage + '">'
       : '<div class="thumb-empty"></div>';
@@ -364,6 +380,7 @@ function renderProductList(){
       ? '<img src="https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + p.backImage + '">'
       : '<div class="thumb-empty"></div>';
     card.innerHTML =
+      '<div class="drag-handle" title="Drag to reorder">⠿</div>' +
       '<div class="thumbs">' + frontThumb + backThumb + '</div>' +
       '<div class="info">' +
         '<h3>' + p.name + '</h3>' +
@@ -371,10 +388,61 @@ function renderProductList(){
         '<div class="meta">' + (p.drop ? p.drop + ' · ' : '') + '$' + p.price + (p.active === false ? ' · hidden' : ' · live') + '</div>' +
       '</div>' +
       '<div class="card-actions">' +
+        '<div class="reorder-btns">' +
+          '<button onclick="moveProduct(\'' + p.id + '\', -1)" ' + (i === 0 ? 'disabled' : '') + ' title="Move up">▲</button>' +
+          '<button onclick="moveProduct(\'' + p.id + '\', 1)" ' + (i === productsData.products.length - 1 ? 'disabled' : '') + ' title="Move down">▼</button>' +
+        '</div>' +
         '<button onclick="editProduct(\'' + p.id + '\')">Edit</button>' +
         '<button class="btn-danger" onclick="deleteProduct(\'' + p.id + '\')">Delete</button>' +
       '</div>';
     list.appendChild(card);
+  });
+  attachDragHandlers(list);
+}
+
+function moveProduct(id, direction){
+  const arr = productsData.products;
+  const idx = arr.findIndex(p => p.id === id);
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= arr.length) return;
+  const tmp = arr[idx];
+  arr[idx] = arr[newIdx];
+  arr[newIdx] = tmp;
+  renderProductList();
+  setStatus('Reordered. Click "Publish changes to site" to make it live.', 'ok');
+}
+
+let dragSourceId = null;
+
+function attachDragHandlers(list){
+  const cards = list.querySelectorAll('.product-card');
+  cards.forEach(function(card){
+    card.addEventListener('dragstart', function(e){
+      dragSourceId = card.dataset.id;
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    card.addEventListener('dragend', function(){
+      card.classList.remove('dragging');
+      dragSourceId = null;
+    });
+    card.addEventListener('dragover', function(e){
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    });
+    card.addEventListener('drop', function(e){
+      e.preventDefault();
+      const targetId = card.dataset.id;
+      if (!dragSourceId || dragSourceId === targetId) return;
+      const arr = productsData.products;
+      const fromIdx = arr.findIndex(p => p.id === dragSourceId);
+      const toIdx = arr.findIndex(p => p.id === targetId);
+      if (fromIdx === -1 || toIdx === -1) return;
+      const [moved] = arr.splice(fromIdx, 1);
+      arr.splice(toIdx, 0, moved);
+      renderProductList();
+      setStatus('Reordered. Click "Publish changes to site" to make it live.', 'ok');
+    });
   });
 }
 
