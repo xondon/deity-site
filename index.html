@@ -157,15 +157,19 @@ View the drop
 <img class="tee-face tee-front"
 src="/images/tee-front.png?v=3">
 
-<img class="tee-face tee-back"
-src="/images/tee-back.png?v=3">
+<!-- Back face kept in the markup but disabled: the hero now shows the
+     front of the tee only. Re-enable by removing the .disabled class
+     here and the .tee-back display:none rule in styles.css. -->
+<img class="tee-face tee-back disabled"
+src="/images/tee-back.png?v=3"
+aria-hidden="true">
 
 </div>
 
 </div>
 
 
-<div class="sigil">$60</div>
+<div class="sigil">$40</div>
 
 </div>
 
@@ -278,10 +282,10 @@ new Date().getFullYear();
   });
 })();
 
-// Renders the drop grid from products.json — this is the file
-// admin.html writes to, so new designs show up here automatically.
-// Also drives the hero's rotating tee, cycling through every design
-// that has both a front and back image.
+// Renders the drop grid from products.json — this is the file the
+// admin page writes to, so new designs show up here automatically,
+// in whatever order they're arranged there. Also drives the hero tee,
+// which now crossfades through design FRONTS only (no turn, no back).
 fetch('/products.json?v=' + Date.now())
 .then(function(res){ return res.json(); })
 .then(function(data){
@@ -292,7 +296,7 @@ fetch('/products.json?v=' + Date.now())
   var activeProducts = allProducts.filter(function(p){ return p.active !== false; });
 
   renderGrid(activeProducts);
-  cycleHero(activeProducts.filter(function(p){ return p.frontImage && p.backImage; }));
+  cycleHero(activeProducts.filter(function(p){ return p.frontImage; }));
 })
 .catch(function(err){
   console.error('Could not load products.json', err);
@@ -311,16 +315,27 @@ function renderGrid(products){
     card.className = 'product';
 
     // previewFace lets a design default to showing the back on the
-    // card (useful when every front looks the same) — hover always
-    // reveals the other side either way.
-    var showBackFirst = p.previewFace === 'back';
+    // card (useful when every front looks the same). Rather than a
+    // separate .flipped state, the two sources are simply swapped —
+    // "resting" and "revealed" are then the same two slots for every
+    // card, so one turn animation covers both cases.
+    var showBackFirst = p.previewFace === 'back' && p.backImage;
+
+    var restImage    = showBackFirst ? p.backImage  : p.frontImage;
+    var revealImage  = showBackFirst ? p.frontImage : p.backImage;
+    var restLabel    = showBackFirst ? ' — back'  : ' — front';
+    var revealLabel  = showBackFirst ? ' — front' : ' — back';
 
     var imageHtml;
     if (p.frontImage) {
+      // .turnable = has a second face worth revealing, so it gets the
+      // turn on hover / focus / scroll-into-view.
       imageHtml =
-        '<div class="product-image' + (showBackFirst ? ' flipped' : '') + '">' +
-          '<img class="img-front" src="' + p.frontImage + '" alt="' + escapeHtml(p.name) + ' — front">' +
-          (p.backImage ? '<img class="img-back" src="' + p.backImage + '" alt="' + escapeHtml(p.name) + ' — back">' : '') +
+        '<div class="product-image' + (revealImage ? ' turnable' : '') + '">' +
+          '<div class="product-tee">' +
+            '<img class="img-front" src="' + restImage + '" alt="' + escapeHtml(p.name) + restLabel + '">' +
+            (revealImage ? '<img class="img-back" src="' + revealImage + '" alt="' + escapeHtml(p.name) + revealLabel + '">' : '') +
+          '</div>' +
         '</div>';
     } else {
       imageHtml = '<div class="product-image no-image">Image coming soon</div>';
@@ -342,31 +357,80 @@ function renderGrid(products){
 
     grid.appendChild(card);
   });
+
+  setupAutoTurn(grid);
 }
 
-// Cycles the hero's rotating tee through every design that has both
-// a front and back image. Timings match the CSS animation in
-// styles.css (16s per full turn): the front image is swapped while
-// it's invisible mid-turn (~60% in), and the back image is swapped
-// while it's invisible at the wrap-around (~95% in), so the switch
-// itself is never visible — it just looks like the next drop turning into view.
+// Touch devices have no hover, so the card turn would be unreachable
+// there. On those devices each card turns itself once as it scrolls
+// into view, then settles back. Desktop keeps hover/focus only, so
+// nothing moves unless the visitor points at it.
+function setupAutoTurn(grid){
+  var noHover = window.matchMedia('(hover: none)').matches ||
+                window.matchMedia('(pointer: coarse)').matches;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!noHover || reduced || !('IntersectionObserver' in window)) return;
+
+  var HOLD_MS = 2200; // how long the revealed face stays up
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (!entry.isIntersecting) return;
+      var card = entry.target;
+      if (card.dataset.turning === '1') return;
+
+      card.dataset.turning = '1';
+      card.classList.add('is-turned');
+
+      setTimeout(function(){
+        card.classList.remove('is-turned');
+        // Small cooldown so a card sitting on the fold doesn't
+        // stutter in and out of the animation.
+        setTimeout(function(){ card.dataset.turning = '0'; }, 800);
+      }, HOLD_MS);
+    });
+  }, { threshold: 0.55 });
+
+  grid.querySelectorAll('.product-image.turnable').forEach(function(el){
+    observer.observe(el);
+  });
+}
+
+// The hero tee no longer turns and never shows a back — it just
+// crossfades through the FRONT of each active design. The image is
+// faded out, swapped while it's invisible, then faded back in, so the
+// swap itself is never seen.
+//
+// Want a single static front instead of a rotation? Delete the
+// scheduleNext() call at the bottom of this function — the first
+// design's front will simply stay up.
 function cycleHero(products){
   var front = document.querySelector('.tee-front');
-  var back = document.querySelector('.tee-back');
-  if (!front || !back || products.length === 0) return;
+  if (!front || products.length === 0) return;
 
-  var CYCLE_MS = 16000;
+  var CYCLE_MS = 9000;  // time each design holds
+  var FADE_MS  = 700;   // must match the .tee-front transition in styles.css
   var idx = 0;
 
   front.src = products[0].frontImage;
-  back.src = products[0].backImage;
 
   function scheduleNext(){
-    idx = (idx + 1) % products.length;
-    var next = products[idx];
-    setTimeout(function(){ front.src = next.frontImage; }, CYCLE_MS * 0.6);
-    setTimeout(function(){ back.src = next.backImage; }, CYCLE_MS * 0.95);
-    setTimeout(scheduleNext, CYCLE_MS);
+    setTimeout(function(){
+      idx = (idx + 1) % products.length;
+      var nextSrc = products[idx].frontImage;
+
+      // Preload so the fade-in never lands on a half-loaded image.
+      var pre = new Image();
+      pre.onload = pre.onerror = function(){
+        front.classList.add('fading');
+        setTimeout(function(){
+          front.src = nextSrc;
+          front.classList.remove('fading');
+          scheduleNext();
+        }, FADE_MS);
+      };
+      pre.src = nextSrc;
+    }, CYCLE_MS);
   }
 
   if (products.length > 1) scheduleNext();

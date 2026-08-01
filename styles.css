@@ -355,6 +355,11 @@ a{color:inherit; text-decoration:none}
   pointer-events:none;
 }
 
+/* The hero tee is front-only now: no turn, no back face. The teeTurn /
+   faceFrontOpacity / faceBackOpacity keyframes below are kept but
+   unused, so the old rotating hero can be restored by putting the
+   animation lines back on .tee3d / .tee-front / .tee-back. */
+
 .tee3d{
   position:relative;
   width:105%;
@@ -362,7 +367,7 @@ a{color:inherit; text-decoration:none}
   aspect-ratio: 1 / 1.05;
   transform-style: preserve-3d;
   perspective: 900px;
-  animation: teeTurn 16s ease-in-out infinite;
+  transform: scale(1.02);
   filter:
     drop-shadow(0 0 18px rgba(241,198,92,.10))
     drop-shadow(0 0 50px rgba(0,0,0,.55));
@@ -379,30 +384,29 @@ a{color:inherit; text-decoration:none}
   will-change: opacity;
 }
 
-.tee-back{
-  transform: translateZ(18px);
-}
-
-@keyframes teeTurn{
-  0%   { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
-  50%  { transform: rotateY( 28deg) rotateX(6deg) scale(1.02); }
-  100% { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
+/* Hero back face — disabled. Delete this rule (and the .disabled
+   class in index.html) to bring it back. */
+.tee-back.disabled{
+  display:none;
 }
 
 .tee-front{
   opacity:1;
   z-index:2;
-  animation:
-    faceFrontOpacity 16s ease-in-out infinite,
-    frontZ 16s steps(1,end) infinite;
+  /* Duration must stay in sync with FADE_MS in index.html. */
+  transition: opacity .7s ease;
 }
 
-.tee-back{
+.tee-front.fading{
   opacity:0;
-  z-index:1;
-  animation:
-    faceBackOpacity 16s ease-in-out infinite,
-    backZ 16s steps(1,end) infinite;
+}
+
+/* ---- kept for reference / easy restore, not currently applied ---- */
+
+@keyframes teeTurn{
+  0%   { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
+  50%  { transform: rotateY( 28deg) rotateX(6deg) scale(1.02); }
+  100% { transform: rotateY(-28deg) rotateX(6deg) scale(1.02); }
 }
 
 @keyframes faceFrontOpacity{
@@ -901,6 +905,16 @@ left:140%;
   box-shadow:0 24px 80px rgba(0,0,0,.6), 0 0 30px var(--goldC);
 }
 
+/* Product cards borrow the hero's old turn: the tee rotates on its
+   Y axis while the two faces crossfade, so the other side reads as the
+   back of the same garment rather than a swapped picture.
+
+   Triggered three ways:
+     - :hover           — pointer devices
+     - :focus-within    — keyboard users tabbing to the Buy button
+     - .is-turned       — added by index.html when a card scrolls into
+                          view on touch devices, which have no hover */
+
 .product-image{
   position:relative;
   aspect-ratio:4/5;
@@ -908,6 +922,16 @@ left:140%;
     radial-gradient(circle at center, var(--goldC), transparent 65%),
     rgba(7,7,7,.4);
   overflow:hidden;
+  perspective: 900px;
+}
+
+.product-tee{
+  position:absolute;
+  inset:0;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg) scale(1);
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
 }
 
 .product-image img{
@@ -917,6 +941,7 @@ left:140%;
   height:100%;
   object-fit:contain;
   padding:8px;
+  backface-visibility: hidden;
   transition: opacity .35s ease;
 }
 
@@ -930,28 +955,50 @@ left:140%;
   z-index:1;
 }
 
-.product-image:hover .img-front{
+.product-image.turnable.is-turned .product-tee,
+.product:focus-within .product-image.turnable .product-tee{
+  transform: rotateY(-26deg) rotateX(4deg) scale(1.04);
+}
+
+.product-image.turnable.is-turned .img-front,
+.product:focus-within .product-image.turnable .img-front{
   opacity:0;
 }
 
-.product-image:hover .img-back{
+.product-image.turnable.is-turned .img-back,
+.product:focus-within .product-image.turnable .img-back{
   opacity:1;
 }
 
-.product-image.flipped .img-front{
-  opacity:0;
+/* Hover is gated to real pointers — on touch, mobile browsers latch
+   :hover after a tap and the card would stay turned. */
+@media (hover: hover) and (pointer: fine){
+  .product:hover .product-image.turnable .product-tee{
+    transform: rotateY(-26deg) rotateX(4deg) scale(1.04);
+  }
+  .product:hover .product-image.turnable .img-front{
+    opacity:0;
+  }
+  .product:hover .product-image.turnable .img-back{
+    opacity:1;
+  }
 }
 
-.product-image.flipped .img-back{
-  opacity:1;
+/* Keyboard focus needs to be visible, not just implied by the turn. */
+.product:focus-within{
+  outline:1px solid rgba(241,198,92,.55);
+  outline-offset:2px;
 }
 
-.product-image.flipped:hover .img-front{
-  opacity:1;
-}
-
-.product-image.flipped:hover .img-back{
-  opacity:0;
+@media (prefers-reduced-motion: reduce){
+  .product-tee{
+    transition:none;
+  }
+  .product-image.turnable.is-turned .product-tee,
+  .product:hover .product-image.turnable .product-tee,
+  .product:focus-within .product-image.turnable .product-tee{
+    transform:none !important;
+  }
 }
 
 .product-image.no-image{
