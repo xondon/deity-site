@@ -369,9 +369,12 @@ function setupAutoTurn(grid){
   var noHover = window.matchMedia('(hover: none)').matches ||
                 window.matchMedia('(pointer: coarse)').matches;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!noHover || reduced || !('IntersectionObserver' in window)) return;
+  if (!noHover || !('IntersectionObserver' in window)) return;
 
-  var HOLD_MS = 2200; // how long the revealed face stays up
+  // With reduced motion there's no turn to run, so the faces just hold
+  // the swap for a beat instead.
+  var TURN_MS = reduced ? 1800 : 5200; // non-reduced value matches cardTurn in styles.css
+  var COOLDOWN_MS = 900;
 
   var observer = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
@@ -382,12 +385,23 @@ function setupAutoTurn(grid){
       card.dataset.turning = '1';
       card.classList.add('is-turned');
 
-      setTimeout(function(){
+      var tee = card.querySelector('.product-tee');
+      var done = false;
+
+      function finish(){
+        if (done) return;
+        done = true;
+        if (tee) tee.removeEventListener('animationend', finish);
         card.classList.remove('is-turned');
-        // Small cooldown so a card sitting on the fold doesn't
-        // stutter in and out of the animation.
-        setTimeout(function(){ card.dataset.turning = '0'; }, 800);
-      }, HOLD_MS);
+        // Cooldown so a card parked on the fold doesn't stutter in
+        // and out of the animation.
+        setTimeout(function(){ card.dataset.turning = '0'; }, COOLDOWN_MS);
+      }
+
+      if (tee && !reduced) tee.addEventListener('animationend', finish);
+      // Fallback in case animationend never fires (tab backgrounded,
+      // animation blocked, reduced motion).
+      setTimeout(finish, TURN_MS + 400);
     });
   }, { threshold: 0.55 });
 
