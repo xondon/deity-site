@@ -3,6 +3,42 @@
   "dropTagline": "Become a Deity",
   "products": [
     {
+      "id": "deity-tee-god-1785550496727",
+      "name": "DEITY Tee God",
+      "drop": "",
+      "desc": "",
+      "price": 40,
+      "frontImage": "/images/deity-tee-god-front-1785550496724.png",
+      "backImage": "/images/deity-tee-god-back-1785550496727.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-75",
+      "active": true
+    },
+    {
+      "id": "deity-tee-jesus-1785550584176",
+      "name": "DEITY Tee Jesus",
+      "drop": "",
+      "desc": "",
+      "price": 40,
+      "frontImage": "/images/deity-tee-jesus-front-1785550584171.png",
+      "backImage": "/images/deity-tee-jesus-back-1785550584176.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-76",
+      "active": true
+    },
+    {
+      "id": "deity-tee-mary-1785550685945",
+      "name": "DEITY Tee Mary",
+      "drop": "",
+      "desc": "",
+      "price": 40,
+      "frontImage": "/images/deity-tee-mary-front-1785550685941.png",
+      "backImage": "/images/deity-tee-mary-back-1785550685945.png",
+      "previewFace": "back",
+      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-77",
+      "active": true
+    },
+    {
       "id": "deity-tee-zeus-1785114749595",
       "name": "DEITY Tee Zeus",
       "drop": "",
@@ -144,42 +180,6 @@
       "backImage": "/images/deity-tee-amaterasu-back-1785120284607.png",
       "previewFace": "back",
       "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-55",
-      "active": true
-    },
-    {
-      "id": "deity-tee-god-1785550496727",
-      "name": "DEITY Tee God",
-      "drop": "",
-      "desc": "",
-      "price": 40,
-      "frontImage": "/images/deity-tee-god-front-1785550496724.png",
-      "backImage": "/images/deity-tee-god-back-1785550496727.png",
-      "previewFace": "back",
-      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-75",
-      "active": true
-    },
-    {
-      "id": "deity-tee-jesus-1785550584176",
-      "name": "DEITY Tee Jesus",
-      "drop": "",
-      "desc": "",
-      "price": 40,
-      "frontImage": "/images/deity-tee-jesus-front-1785550584171.png",
-      "backImage": "/images/deity-tee-jesus-back-1785550584176.png",
-      "previewFace": "back",
-      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-76",
-      "active": true
-    },
-    {
-      "id": "deity-tee-mary-1785550685945",
-      "name": "DEITY Tee Mary",
-      "drop": "",
-      "desc": "",
-      "price": 40,
-      "frontImage": "/images/deity-tee-mary-front-1785550685941.png",
-      "backImage": "/images/deity-tee-mary-back-1785550685945.png",
-      "previewFace": "back",
-      "buyUrl": "https://shop.deityco.com/products/snow-washed-oversized-cotton-t-shirt-77",
       "active": true
     }
   ]
